@@ -22,7 +22,6 @@ def print_grid(solver):
             else:
                 print(value, end="")
 
-
 def main(solver):
     print("Welcome to Sudoku Solver!")
     start = time()
