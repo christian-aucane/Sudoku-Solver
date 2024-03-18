@@ -1,5 +1,8 @@
 from time import time
 
+from base import MookSudokuSolver
+from main import read_file
+
 
 
 def print_grid(solver):
@@ -30,4 +33,6 @@ def main(solver):
 
 
 if __name__ == '__main__':
-    main(None)
+    grid = read_file("grids/1.txt")
+    solver = MookSudokuSolver(grid)
+    main(solver)

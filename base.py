@@ -125,3 +125,12 @@ class BaseSudokuSolver:
         """
         return self.verify_line() and self.verify_column() and self.verify_block()
     
+
+class MookSudokuSolver(BaseSudokuSolver):
+    def solve(self):
+        from random import randint
+        for i in range(9):
+            for j in range(9):
+                if self.grid[i][j] == 0:
+                    self.grid[i][j] = randint(1, 9)
+        return True
