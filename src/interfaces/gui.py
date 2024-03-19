@@ -172,6 +172,7 @@ def display(solver):
     solver : BaseSudokuSolver child
         the sudoku solver
     """
+    # TODO : debuger la fonction (Pourquoi ca ne s'affiche pas ?)
     print("Displaying grid")
     draw_grid(solver)
     pygame.display.flip()
