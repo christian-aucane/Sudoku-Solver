@@ -11,7 +11,9 @@ file_name : str
 method : str
     method to solve the sudoku (bruteforce, backtracking, mook)
 interface : str
-    interface to use (cli, gui)"""
+    interface to use (cli, gui)
+"""
+
 import argparse
 from pathlib import Path
 
@@ -44,8 +46,9 @@ def parse_args():
     """
     parser = argparse.ArgumentParser()
     parser.add_argument('file_name', type=str, help='name of the file containing the grid withpout the extension')
-    parser.add_argument('method', choices=["bruteforce", "backtrack", "mook"], default="bruteforce", help="method to solve the sudoku (bruteforce, backtracking, mook)")
+    parser.add_argument('method', choices=["bruteforce", "backtracking", "mook"], default="bruteforce", help="method to solve the sudoku (bruteforce, backtracking, mook)")
     parser.add_argument('interface', choices=["cli", "gui"], default="cli", help="interface to use (cli, gui)")
+    parser.add_argument('--display', '-d', action='store_true', help="display the fill steps")
     args = parser.parse_args()
 
     return args
@@ -59,22 +62,19 @@ def main():
     grid = read_file(GRIDS_PATH / (args.file_name + '.txt'))
 
     if args.method == 'backtracking':
-        from solvers.backtracking import BacktrackingSudokuSolver
-        solver = BacktrackingSudokuSolver(grid)
+        from solvers.backtracking import BacktrackingSudokuSolver as solver_class
     elif args.method == 'bruteforce':
-        from solvers.bruteforce import BruteforceSudokuSolver
-        solver = BruteforceSudokuSolver(grid)
+        from solvers.bruteforce import BruteforceSudokuSolver as solver_class
     elif args.method == 'mook':
-        from solvers.mook import MookSudokuSolver
-        solver = MookSudokuSolver(grid)
+        from solvers.mook import MookSudokuSolver as solver_class
 
     if args.interface == 'cli':
         from interfaces.cli import main
     elif args.interface == 'gui':
         from interfaces.gui import main
     
-    main(solver)
-    
+    main(solver_class, grid, args.display)
+
 
 if __name__ == '__main__':
     main()
