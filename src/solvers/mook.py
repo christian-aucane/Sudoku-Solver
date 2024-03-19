@@ -17,6 +17,6 @@ class MookSudokuSolver(BaseSudokuSolver):
             if row is None and col is None:
                 break
             self.grid[row][col] = random.randint(1, 9)
-
-        time.sleep(random.uniform(0.5, 2.5))
+            self.display()
+            time.sleep(random.uniform(0.01, 0.02))
         return True

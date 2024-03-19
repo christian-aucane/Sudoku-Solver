@@ -163,8 +163,20 @@ def update_screen(button, solver, finish, execution_time, grid_solved):
         screen.blit(text, text_rect)
     pygame.display.flip()
 
+def display(solver):
+    """
+    Display callback
 
-def main(solver):
+    Parameters
+    ----------
+    solver : BaseSudokuSolver child
+        the sudoku solver
+    """
+    print("Displaying grid")
+    draw_grid(solver)
+    pygame.display.flip()
+
+def main(solver_class, grid, display_steps):
     """
     Main function
 
@@ -173,6 +185,8 @@ def main(solver):
     solver : BaseSudokuSolver child
         the sudoku solver
     """
+    display_callback = lambda solver: display(solver) if display_steps else lambda solver: None
+    solver = solver_class(grid=grid, display_callback=display_callback)
     # Create the button
     button = Button(200, 500, 140, 50, "Solve", GREEN)
 

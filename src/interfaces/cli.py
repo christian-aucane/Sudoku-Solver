@@ -34,8 +34,19 @@ def print_grid(solver):
             else:
                 print(printable_value, end="")
 
+def display(solver):
+    """
+    Display callback
 
-def main(solver):
+    Parameters
+    ----------
+    solver : BaseSudokuSolver child
+        the sudoku solver
+    """
+    print_grid(solver)
+    input()
+
+def main(solver_class, grid, display_steps):
     """
     Main function
 
@@ -44,6 +55,8 @@ def main(solver):
     solver : BaseSudokuSolver child
         the sudoku solver
     """
+    display_callback = lambda solver: display(solver) if display_steps else lambda solver: None
+    solver = solver_class(grid=grid, display_callback=display_callback)
     print("Welcome to Sudoku Solver!")
     start = time()
     grid_solved = solver.solve()
