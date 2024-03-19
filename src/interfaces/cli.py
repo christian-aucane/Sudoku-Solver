@@ -21,7 +21,9 @@ def print_grid(solver):
             
             # Value is from the original grid if it is not empty
             value = solver.original_grid[i][j] if solver.original_grid[i][j] != 0 else solver.grid[i][j]
-            empty = bool(solver.original_grid[i][j])
+            if value == 0:
+                value = " "
+            empty = not bool(solver.original_grid[i][j])
 
             # Go to the line if you reach the end of the line
             printable_value = f"{value}\n" if j == 8 else f"{value} "
@@ -44,11 +46,16 @@ def main(solver):
     """
     print("Welcome to Sudoku Solver!")
     start = time()
-    solver.solve()
+    grid_solved = solver.solve()
     end = time()
-    print(f"Solved in {end - start} seconds")
-
+    execution_time = end - start
+    
     print_grid(solver)
+
+    if grid_solved:
+        print(f"Solved in {execution_time} seconds")
+    else:
+        print(f"No solution found in {execution_time} seconds")
 
     print("Thank you for using Sudoku Solver!")
     

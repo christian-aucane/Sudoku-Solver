@@ -100,7 +100,7 @@ def draw_grid(solver, solved=False):
                 text = font.render(str(solver.original_grid[i][j]), True, BLACK)
                 text_rect = text.get_rect(center=(MARGIN_X + j * CELL_SIZE + CELL_SIZE // 2, MARGIN_Y + i * CELL_SIZE + CELL_SIZE // 2))
                 screen.blit(text, text_rect)
-            elif solved:
+            elif solved and solver.grid[i][j] != 0:
                 pygame.draw.rect(screen, WHITE, (MARGIN_X + j * CELL_SIZE, MARGIN_Y + i * CELL_SIZE, CELL_SIZE, CELL_SIZE))
                 text = font.render(str(solver.grid[i][j]), True, RED)
                 text_rect = text.get_rect(center=(MARGIN_X + j * CELL_SIZE + CELL_SIZE // 2, MARGIN_Y + i * CELL_SIZE + CELL_SIZE // 2))
@@ -121,7 +121,7 @@ def draw_grid(solver, solved=False):
     pygame.draw.rect(screen, GREY, (MARGIN_X, MARGIN_Y, GRID_WIDTH, GRID_HEIGHT), 10)
 
 
-def update_screen(button, solver, solved, execution_time):
+def update_screen(button, solver, finish, execution_time, grid_solved):
     """
     Update the screen
 
@@ -131,8 +131,8 @@ def update_screen(button, solver, solved, execution_time):
         the button
     solver : BaseSudokuSolver child
         the sudoku solver
-    solved : bool
-        if the grid is solved
+    finish : bool
+        if the grid is finish
     execution_time : float
         the execution time
     """
@@ -146,14 +146,19 @@ def update_screen(button, solver, solved, execution_time):
     screen.blit(text, text_rect)
 
     # Draw the grid
-    draw_grid(solver, solved)
+    draw_grid(solver, finish)
 
-    # Show button or solved message with execution time
-    if not solved:
+    font = pygame.font.SysFont(None, 30)
+
+    # Show button or finish message with execution time
+    if not finish:
         button.draw(screen)
-    else:
-        font = pygame.font.SysFont(None, 30)
+    elif grid_solved:
         text = font.render(f"Solved in {execution_time} seconds", True, BLACK)
+        text_rect = text.get_rect(center=(WIDTH // 2, 550))
+        screen.blit(text, text_rect)
+    else:
+        text = font.render(f"No solution found in {execution_time} seconds", True, BLACK)
         text_rect = text.get_rect(center=(WIDTH // 2, 550))
         screen.blit(text, text_rect)
     pygame.display.flip()
@@ -172,8 +177,9 @@ def main(solver):
     button = Button(200, 500, 140, 50, "Solve", GREEN)
 
     # Initialize execution variables
-    solved = False
+    finish = False
     execution_time = 0
+    grid_solved = False
 
     # Start the main loop
     while True:
@@ -184,17 +190,17 @@ def main(solver):
                 sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if button.is_clicked(event.pos):
-                    if not solved:
+                    if not finish:
                         # Change the button color and text
                         button.color = RED
                         button.text = "Solving ..."
-                        update_screen(button, solver, solved, execution_time)
+                        update_screen(button, solver, finish, execution_time, grid_solved)
 
                         # Solve the grid
                         start = time()
-                        solver.solve()
+                        grid_solved = solver.solve()
                         end = time()
                         execution_time = end - start
-                        solved = True
+                        finish = True
 
-        update_screen(button, solver, solved, execution_time)
+        update_screen(button, solver, finish, execution_time, grid_solved)
