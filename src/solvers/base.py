@@ -1,6 +1,4 @@
 from copy import deepcopy
-import random
-import time
 
 """
 [[0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -78,7 +76,7 @@ class BaseSudokuSolver:
                     return False
         return True
 
-    def fill_current_box(self, value):
+    def fill_current_cell(self, value):
         """
         Fill current box with value
 
@@ -88,14 +86,6 @@ class BaseSudokuSolver:
             value to fill current box with
         """
         self.grid[self.y][self.x] = value
-        
-    def verify_grid(self):
-        """
-        Verify if all values in line, column and block are unique
-        """
-        return self.verify_set_of_values(self.line) \
-            and self.verify_set_of_values(self.column) \
-            and self.verify_set_of_values(self.block)
     
     @property
     def line(self):
@@ -103,14 +93,14 @@ class BaseSudokuSolver:
         Return values of current line of grid
         """
         return self.grid[self.y]
-        
+
     @property
     def column(self):
         """
         Return values of current column of grid
         """
         return [x[self.y] for x in self.grid]
-    
+
     @property
     def block(self):
         """
@@ -119,7 +109,7 @@ class BaseSudokuSolver:
         block_x = self.x // 3
         block_y = self.y // 3
         return [self.grid[y][x] for y in range(block_y * 3, block_y * 3 + 3) for x in range(block_x * 3, block_x * 3 + 3)]
-    
+
     @staticmethod
     def verify_set_of_values(set_of_values):
         """
@@ -130,4 +120,12 @@ class BaseSudokuSolver:
                 return False
         return True
 
-
+    @property
+    def is_valid(self):
+        """
+        Verify if all values in line, column and block are unique
+        """
+        return self.verify_set_of_values(self.line) \
+            and self.verify_set_of_values(self.column) \
+            and self.verify_set_of_values(self.block)
+    

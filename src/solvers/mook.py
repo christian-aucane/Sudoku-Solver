@@ -1,8 +1,7 @@
-
 import random
 import time
 
-from solvers.base import BaseSudokuSolver
+from .base import BaseSudokuSolver
 
 
 class MookSudokuSolver(BaseSudokuSolver):
@@ -14,7 +13,7 @@ class MookSudokuSolver(BaseSudokuSolver):
         Fill empty values with random numbers
         """
         while True:
-            self.fill_current_box(random.randint(1, 9))
+            self.fill_current_cell(random.randint(1, 9))
             if not self.move_next():
                 break
 
