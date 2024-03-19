@@ -15,15 +15,8 @@ A Sudoku Solver using Brute Force and Backtracking
 ### methodes
 - solve (abstraite) -> retourne la grille résolue (implémenter dans la classe fille, spécifique a la methode de resolution)
 - reset -> Restaure la grille a son état d'origine
-- move_next -> change la position pour la prochaine case vide
-- fill_current_cell -> Remplie la case actuele avec la valeur passée en paramètre
-- verify_set_of_values -> Vérifie que les valeurs de l'ensemble passée en paramètre sont uniques ou des vides
-
-### propriétés
-- line -> Renvoie une liste contenant les valeurs de la ligne actuelle
-- column -> Revoie une liste contenant les valeurs de la colonne actuelle
-- block -> Renvoie une liste contenant les valeurs du block 3x3 actuel
-- is_valid -> Vérifie que la case actuelle n'entre pas en conflit avec la ligne, la colonne et le block 3x3
+- is_valid -> Vérifie si une valeur est valide pour une case
+- find_empty_cell -> Trouve la prochaine cellule vide
 
 ## Fichiers
 ### interfaces (un fichier par interface)

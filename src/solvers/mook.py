@@ -13,8 +13,10 @@ class MookSudokuSolver(BaseSudokuSolver):
         Fill empty values with random numbers
         """
         while True:
-            self.fill_current_cell(random.randint(1, 9))
-            if not self.move_next():
+            row, col = self.find_empty_cell()
+            if row is None and col is None:
                 break
+            self.grid[row][col] = random.randint(1, 9)
 
         time.sleep(random.uniform(0.5, 2.5))
+        return True

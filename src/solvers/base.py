@@ -1,7 +1,7 @@
 from copy import deepcopy
 
 """
-[[0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [[0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -18,7 +18,7 @@ class BaseSudokuSolver:
     """
     def __init__(self, grid):
         """
-        When init instance, the position is the first empty box
+        When init instance, the position is the first empty cell
 
         Parameters
         ----------
@@ -27,24 +27,16 @@ class BaseSudokuSolver:
         """
         self.original_grid = grid
         self.grid = deepcopy(grid)
-        self.x = 0
-        self.y = 0
-        self.move_next()
 
     def solve(self):
         """
         Solve sudoku -> Modify self.grid
         IMPLEMENT IN SUBCLASS
-        >>> BaseSudokuSolver(
-        ... [[0, 0, 0, 0, 0, 0, 0, 0, 0],
-        ... [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        ... [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        ... [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        ... [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        ... [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        ... [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        ... [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        ... [0, 0, 0, 0, 0, 0, 0, 0, 0]]).solve()
+
+        Returns
+        -------
+        bool
+            True when a solution is found, False otherwise
         """
         raise NotImplementedError("Subclasses must implement this!")
 
@@ -53,79 +45,41 @@ class BaseSudokuSolver:
         Reset grid
         """
         self.grid = deepcopy(self.original_grid)
-        self.x = 0
-        self.y = 0
-        self.move_next()
 
-    def move_next(self):
+    def is_valid(self, row, col, num):  # Check if 'num' already exists in the current row or column
         """
-        Move to next empty position in grid
-        Returns
-        -------
-        bool        
-            True when an empty box is found, False otherwise
-        """
-        while self.grid[self.y][self.x] != 0:
-            if self.y < 8:
-                self.y += 1
-            else:
-                self.y = 0
-                if self.x < 8:
-                    self.x += 1
-                else:
-                    return False
-        return True
-
-    def fill_current_cell(self, value):
-        """
-        Fill current box with value
-
+        Check if a number can be placed in the current position
+        
         Parameters
         ----------
-        value : int
-            value to fill current box with
+        row : int
+            Row index
+        col : int
+            Column index
+        num : int
+            Number to check
         """
-        self.grid[self.y][self.x] = value
-    
-    @property
-    def line(self):
-        """
-        Return values of current line of grid
-        """
-        return self.grid[self.y]
+        for i in range(9):  # Iterate over each row in the grid  
+            if self.grid[row][i] == num or self.grid[i][col] == num:   
+                return False     # If 'num' already exists in the row or column, return False indicating invalidity
+        start_row, start_col = 3 * (row // 3), 3 * (col // 3)   # Calculate the starting index of the 3x3 subgrid
+        for i in range(3):  # Iterate over the 3x3 subgrid
+            for j in range(3):
+                if self.grid[i + start_row][j + start_col] == num:  # Check if 'num' already exists in the subgrid
+                    return False    # If 'num' already exists in the subgrid
+        return True # If 'num' does not already exists in the row, column, or subgrid
 
-    @property
-    def column(self):
+    def find_empty_cell(self):
         """
-        Return values of current column of grid
+        Find the first empty cell in the grid
+        
+        Returns
+        -------
+        tuple
+            Row index and column index of the empty cell (None, None) if no empty cell is found
         """
-        return [x[self.y] for x in self.grid]
-
-    @property
-    def block(self):
-        """
-        Return values of current block of grid
-        """
-        block_x = self.x // 3
-        block_y = self.y // 3
-        return [self.grid[y][x] for y in range(block_y * 3, block_y * 3 + 3) for x in range(block_x * 3, block_x * 3 + 3)]
-
-    @staticmethod
-    def verify_set_of_values(set_of_values):
-        """
-        Verify if all values a set of values are unique (call with self.line, self.column or self.block)
-        """
-        for value in set_of_values:
-            if set_of_values.count(value) > 1 and value != 0:
-                return False
-        return True
-
-    @property
-    def is_valid(self):
-        """
-        Verify if all values in line, column and block are unique
-        """
-        return self.verify_set_of_values(self.line) \
-            and self.verify_set_of_values(self.column) \
-            and self.verify_set_of_values(self.block)
-    
+        for i in range(9):
+            for j in range(9):
+                if self.grid[i][j] == 0:  # Check if the current cell is empty
+                    return i, j  # If the current cell is empty, return its coordinates
+        return None, None  # If no empty cell is found, return None for row and col
