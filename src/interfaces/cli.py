@@ -43,6 +43,7 @@ def display(solver):
     solver : BaseSudokuSolver child
         the sudoku solver
     """
+    print()
     print_grid(solver)
     input()
 

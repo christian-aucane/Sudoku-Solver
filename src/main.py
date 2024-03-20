@@ -12,28 +12,14 @@ method : str
     method to solve the sudoku (bruteforce, backtracking, mook)
 interface : str
     interface to use (cli, gui)
+--display -d : bool
+    display the fill steps
 """
-
 import argparse
-from pathlib import Path
+import importlib
 
-GRIDS_PATH = Path(__file__).parent.parent / "grids"
+from utils import GRIDS_DIR, read_file
 
-def read_file(file_path):
-    """
-    Read grid from file
-    
-    Parameters
-    ----------
-    file_path : str
-        path of the file
-    """
-    grid = []
-    with open(file_path, 'r') as f:
-        for line in f:
-            line = [int(x) if x != "_" else 0 for x in line.strip()]
-            grid.append(line)
-    return grid
 
 def parse_args():
     """
@@ -45,13 +31,25 @@ def parse_args():
         command line arguments
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument('file_name', type=str, help='name of the file containing the grid withpout the extension')
-    parser.add_argument('method', choices=["bruteforce", "backtracking", "mook"], default="bruteforce", help="method to solve the sudoku (bruteforce, backtracking, mook)")
-    parser.add_argument('interface', choices=["cli", "gui"], default="cli", help="interface to use (cli, gui)")
-    parser.add_argument('--display', '-d', action='store_true', help="display the fill steps")
-    args = parser.parse_args()
 
-    return args
+    parser.add_argument(
+        'file_name', choices=[x.name[:-4] for x in GRIDS_DIR.iterdir()], 
+        help='name of the file containing the grid withpout the extension'
+    )
+    parser.add_argument(
+        'method', choices=["mook", "bruteforce", "backtracking", "bruteforce2"],
+        help="method to solve the sudoku"
+    )
+    parser.add_argument(
+        'interface', choices=["cli", "gui"],
+        help="type of interface"
+    )
+    parser.add_argument(
+        '--display', '-d', action='store_true', 
+        help="display the fill steps"
+    )
+
+    return parser.parse_args()
 
 def main():
     """
@@ -59,20 +57,14 @@ def main():
     """
     args = parse_args()
 
-    grid = read_file(GRIDS_PATH / (args.file_name + '.txt'))
+    grid = read_file(GRIDS_DIR / (args.file_name + '.txt'))
 
-    if args.method == 'backtracking':
-        from solvers.backtracking import BacktrackingSudokuSolver as solver_class
-    elif args.method == 'bruteforce':
-        from solvers.bruteforce import BruteforceSudokuSolver as solver_class
-    elif args.method == 'mook':
-        from solvers.mook import MookSudokuSolver as solver_class
+    # Import the solver class
+    solver_module = importlib.import_module(f"solvers.{args.method}")
+    solver_class = getattr(solver_module, f"{args.method.capitalize()}SudokuSolver")
 
-    if args.interface == 'cli':
-        from interfaces.cli import main
-    elif args.interface == 'gui':
-        from interfaces.gui import main
-    
+    # Import the interface main function
+    main = importlib.import_module(f"interfaces.{args.interface}").main
     main(solver_class, grid, args.display)
 
 
