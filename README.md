@@ -23,8 +23,12 @@ A Sudoku Solver using Brute Force and Backtracking
 Contient le code des interfaces CLI et GUI
 
 ### solvers (un fichier par classe)
-Contient les classes des solvers BaseSudokuSolver, MookSudokuSolver
+Contient les classes des solvers BaseSudokuSolver, MookSudokuSolver, BruteforceSudokuSolver, BacktrackingSudokuSolver
 
 ### main.py
 Lance le programme
-Prend en parametre DANS L'ORDRE le nom du fichier (entre 1 et 5) sans extention, une methode (bruteforce, backtracking ou mook) et un type d'interface (cli ou gui)
+#### Arguments
+- file_name -> Nom du fichier contenant la grille SANS extrention (entre 1 et 5)
+- method -> Methode de résolution (bruteforce, backtracking ou mook)
+- interface -> Type d'interface (cli ou gui)
+- --display -d -> Argument optionnel qui permet d'afficher les étapes de résolution en temps réel (fonctionne uniquement en CLI)
