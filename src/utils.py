@@ -1,9 +1,9 @@
 from pathlib import Path
 
 
-# Get the path of grids directory
 GRIDS_DIR = Path(__file__).parent.parent / "grids"
-
+SOLVERS_DIR = Path(__file__).parent / "solvers"
+SOLVERS_MODULES = [x.name[:-3] for x in SOLVERS_DIR.iterdir() if x.is_file() and x.name != "base.py" and x.name != "__init__.py"]
 
 def read_file(file_path):
     """
@@ -20,3 +20,4 @@ def read_file(file_path):
             line = [int(x) if x != "_" else 0 for x in line.strip()]
             grid.append(line)
     return grid
+

@@ -1,5 +1,4 @@
 from itertools import product
-import math
 
 from tqdm import tqdm
 
