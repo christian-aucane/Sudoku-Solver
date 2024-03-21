@@ -19,7 +19,7 @@ import argparse
 import importlib
 from pathlib import Path
 
-from utils import GRIDS_DIR, SOLVERS_MODULES, read_file
+from utils import GRIDS_DIR, SOLVERS_MODULES, get_solver_class, read_file
 
 
 def parse_args():
@@ -59,13 +59,11 @@ def main():
 
     grid = read_file(GRIDS_DIR / (args.file_name + '.txt'))
 
-    # Import the solver class
-    solver_module = importlib.import_module(f"solvers.{args.method}")
-    solver_class = getattr(solver_module, f"{args.method.capitalize()}SudokuSolver")
+    solver_class = get_solver_class(args.method)
 
     # Import the interface main function
-    main = importlib.import_module(f"interfaces.{args.interface}").main
-    main(solver_class, grid, args.display)
+    interface_main = importlib.import_module(f"interfaces.{args.interface}").main
+    interface_main(solver_class, grid, args.display)
 
 
 if __name__ == '__main__':

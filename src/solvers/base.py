@@ -16,7 +16,7 @@ class BaseSudokuSolver:
     """
     Base class for sudoku solver
     """
-    def __init__(self, grid, display_callback):
+    def __init__(self, grid, display_callback=lambda solver: None):
         """
         When init instance, the position is the first empty cell
 

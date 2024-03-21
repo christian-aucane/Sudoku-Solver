@@ -1,3 +1,4 @@
+import importlib
 from pathlib import Path
 
 
@@ -21,3 +22,6 @@ def read_file(file_path):
             grid.append(line)
     return grid
 
+def get_solver_class(method):
+    solver_module = importlib.import_module(f"solvers.{method}")
+    return getattr(solver_module, f"{method.capitalize()}SudokuSolver")
