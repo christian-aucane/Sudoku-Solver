@@ -1,13 +1,14 @@
-from base import BaseSudokuSolver
 from copy import deepcopy
-from main import read_file
 import time
 
 
+from ..utils import read_file
+
+
 class BruteForceSolve:
-    def __init__(self, solver):
-        self.original_grid = solver.grid
-        self.grid = deepcopy(solver.grid)
+    def __init__(self, grid):
+        self.original_grid = grid
+        self.grid = deepcopy(grid)
 
     def print_grid(self):  
         for x in range(9):  
@@ -83,27 +84,27 @@ class BruteForceSolve:
         counter = [1] * num_empty_cells
 
         while True:
-        # Fill the grid with the current combination
+            # Fill the grid with the current combination
             for i in range(num_empty_cells):
                 row, col = empty_cells[i]
                 self.grid[row][col] = counter[i]
 
-        # Print current combination
+            # Print current combination
             print("Current combination:", counter)
 
-        # Check if the current combination is valid
+            # Check if the current combination is valid
             valid = True
             for row, col in empty_cells:
                 if not self.is_valid(row, col, self.grid[row][col]):
                     valid = False
                     break
 
-        # If the combination is valid, we found the solution
+            # If the combination is valid, we found the solution
             if valid:
                 print("Sudoku solved")
                 return True
 
-        # Increment the counter
+            # Increment the counter
             index = 0
             while index < num_empty_cells:
                 counter[index] += 1
@@ -122,19 +123,18 @@ class BruteForceSolve:
         return False
 
 
-
-start_time = time.time() 
-
-solver = BaseSudokuSolver((read_file('grids/1.txt')))
-
-brute_solver = BruteForceSolve(solver)
-brute_solver.solve()
+if __name__ == "__main__":
+    start_time = time.time() 
 
 
-print("The Sudoku is solved.")
-brute_solver.print_grid()
+    brute_solver = BruteForceSolve(read_file('grids/output.txt'))
+    brute_solver.solve()
 
-end_time = time.time()
 
-execution_time = end_time - start_time
-print("Execution time: ", execution_time, " seconds")
+    print("The Sudoku is solved.")
+    brute_solver.print_grid()
+
+    end_time = time.time()
+
+    execution_time = end_time - start_time
+    print("Execution time: ", execution_time, " seconds")

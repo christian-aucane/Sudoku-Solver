@@ -17,9 +17,12 @@ interface : str
 """
 import argparse
 import importlib
+from pathlib import Path
 
 from utils import GRIDS_DIR, read_file
 
+
+SOLVERS_DIR = Path(__file__).parent.parent / "solvers"
 
 def parse_args():
     """
@@ -37,7 +40,7 @@ def parse_args():
         help='name of the file containing the grid withpout the extension'
     )
     parser.add_argument(
-        'method', choices=["mook", "bruteforce", "backtracking", "bruteforce2"],
+        'method', choices=[x.name[:-3] for x in SOLVERS_DIR.iterdir()],
         help="method to solve the sudoku"
     )
     parser.add_argument(
