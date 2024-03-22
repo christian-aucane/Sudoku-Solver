@@ -2,11 +2,20 @@ import json
 
 import matplotlib.pyplot as plt
 
-from utils import STATS_DIR
+from utils import STATS_DIR, GRAPHS_DIR
 
-GRAPHS_DIR = STATS_DIR / "graphs"
 
 def plot_method(data, method):
+    """
+    Plot execution time and number of combinations for a given method and save the figure in the GRAPHS_DIR folder
+    
+    Parameters
+    ----------
+    data : dict
+        Dictionary containing the execution time and number of combinations for each number of empty cells
+    method : str
+        Method for which to plot the execution time and number of combinations
+    """
     fig, ax1 = plt.subplots(figsize=(10, 6))
     
     ax1.set_xlabel("Number of Empty Cells")

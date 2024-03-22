@@ -14,12 +14,37 @@ TESTING = {
 
 
 def parse_args():
+    """
+    Parse command line arguments
+    
+    Returns
+    -------
+    args : argparse.Namespace
+        command line arguments
+    """
     parser = argparse.ArgumentParser()
-    parser.add_argument("method", nargs="?", default=None, help="Chemin du fichier d'entrée (optionnel)")
+    parser.add_argument("method", nargs="?", default=None, help="Resolution method")
     return parser.parse_args()
 
 
 def test_solver(grid, solver_class):
+    """
+    Test the solver
+    
+    Parameters
+    ----------
+    grid : list
+        9x9 list of integers
+    solver_class : class
+        Class of the solver to test
+        
+    Returns
+    -------
+    n_combinations : int
+        Number of combinations
+    execution_time : float
+        Execution time
+    """
     solver = solver_class(grid)
     start = time()
     solver.solve()
@@ -28,6 +53,23 @@ def test_solver(grid, solver_class):
 
 
 def test_method(input_grid, method_name, max_empty_cells):
+    """
+    Test the method
+    
+    Parameters
+    ----------
+    input_grid : list
+        9x9 list of integers
+    method_name : str
+        Name of the method
+    max_empty_cells : int
+        Maximum number of empty cells
+        
+    Returns
+    -------
+    results : dict
+        Dictionary with the results
+    """
     print(f"Testing {method_name}")
 
     solver_class = get_solver_class(method_name)
@@ -51,6 +93,23 @@ def test_method(input_grid, method_name, max_empty_cells):
 
 
 def resolution_method(input_grid, method_name, max_empty_cells):
+    """
+    Test the resolution method and save the results in a JSON file
+
+    Parameters
+    ----------
+    input_grid : list
+        9x9 list of integers
+    method_name : str
+        Name of the method
+    max_empty_cells : int
+        Maximum number of empty cells
+
+    Returns
+    -------
+    results : dict
+        Dictionary with the results
+    """
     results = test_method(
         input_grid=input_grid, method_name=method_name, 
         max_empty_cells=max_empty_cells
