@@ -10,6 +10,9 @@ SOURCES_DIR = BASE_DIR / "src"
 SOLVERS_DIR = SOURCES_DIR / "solvers"
 SOLVERS_MODULES = [x.name[:-3] for x in SOLVERS_DIR.iterdir() if x.is_file() and x.name != "base.py" and x.name != "__init__.py"]
 
+count_empty_cells = lambda grid: sum(x == 0 for row in grid for x in row)
+
+
 def read_file(file_path):
     """
     Read grid from file
@@ -48,8 +51,6 @@ def generate_grid(input_grid, num_empty_cells):
     list
         9x9 list of integers with num_empty_cells empty cells
     """
-    count_empty_cells = lambda grid: sum(x == 0 for row in grid for x in row)
-    
     output_grid = deepcopy(input_grid)
     while count_empty_cells(output_grid) < num_empty_cells:
         row = randint(0, 8)
