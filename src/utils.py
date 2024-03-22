@@ -48,16 +48,13 @@ def generate_grid(input_grid, num_empty_cells):
     list
         9x9 list of integers with num_empty_cells empty cells
     """
+    count_empty_cells = lambda grid: sum(x == 0 for row in grid for x in row)
+    
     output_grid = deepcopy(input_grid)
-    for _ in range(num_empty_cells):
+    while count_empty_cells(output_grid) < num_empty_cells:
         row = randint(0, 8)
         col = randint(0, 8)
-        while True:
-            if output_grid[row][col] == 0:
-                
-                row = randint(0, 8)
-                col = randint(0, 8)
-            else:
-                output_grid[row][col] = 0
-                break
+        if output_grid[row][col] == 0:
+            continue
+        output_grid[row][col] = 0
     return output_grid
