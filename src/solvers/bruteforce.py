@@ -3,8 +3,8 @@ from solvers.base import BaseBruteforceSudokuSolver
 
 class BruteforceSudokuSolver(BaseBruteforceSudokuSolver):
 
-    def __init__(self, grid, display_callback):
-        super().__init__(grid, display_callback)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.values = [1] * len(self.empty_cells)
 
     def next_values(self):

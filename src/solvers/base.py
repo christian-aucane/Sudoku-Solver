@@ -104,7 +104,7 @@ class BaseBruteforceSudokuSolver(BaseSudokuSolver):
     """
     Base class for bruteforce sudoku solver
     """
-    def __init__(self, grid, display_callback):
+    def __init__(self, *args, **kwargs):
         """
         When init instance, the position is the first empty cell
 
@@ -113,7 +113,7 @@ class BaseBruteforceSudokuSolver(BaseSudokuSolver):
         grid : list
             9x9 list of integers
         """
-        super().__init__(grid, display_callback)
+        super().__init__(*args, **kwargs)
         self.empty_cells = self.find_empty_cells()
 
     def find_empty_cells(self):

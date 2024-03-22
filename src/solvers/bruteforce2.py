@@ -1,3 +1,4 @@
+
 from itertools import product
 
 from tqdm import tqdm
@@ -7,8 +8,9 @@ from .base import BaseBruteforceSudokuSolver
 
 
 class Bruteforce2SudokuSolver(BaseBruteforceSudokuSolver):
-    def __init__(self, grid, display_callback):
-        super().__init__(grid, display_callback)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
         self.possibles = self.get_all_possibles()
 
     def possible_values(self, row, col):

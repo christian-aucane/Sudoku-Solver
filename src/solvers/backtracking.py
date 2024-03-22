@@ -14,4 +14,5 @@ class BacktrackingSudokuSolver(BaseSudokuSolver):
                 if self.solve():
                     return True
                 self.grid[row][col] = 0
+                self.display()
         return False
