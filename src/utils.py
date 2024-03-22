@@ -3,9 +3,11 @@ from importlib import import_module
 from copy import deepcopy
 from random import randint
 
-
-GRIDS_DIR = Path(__file__).parent.parent / "grids"
-SOLVERS_DIR = Path(__file__).parent / "solvers"
+BASE_DIR = Path(__file__).parent.parent
+GRIDS_DIR = BASE_DIR / "grids"
+STATS_DIR = BASE_DIR / "stats"
+SOURCES_DIR = BASE_DIR / "src"
+SOLVERS_DIR = SOURCES_DIR / "solvers"
 SOLVERS_MODULES = [x.name[:-3] for x in SOLVERS_DIR.iterdir() if x.is_file() and x.name != "base.py" and x.name != "__init__.py"]
 
 def read_file(file_path):
