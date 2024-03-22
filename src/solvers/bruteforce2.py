@@ -41,6 +41,16 @@ class Bruteforce2SudokuSolver(BaseBruteforceSudokuSolver):
             possibles.append(self.possible_values(row, col))
         return possibles
 
+    @property
+    def n_combinations(self):
+        """
+        Return number of possibilities for the grid
+        """
+        num_combinations = 1
+        for possibilities in self.possibles:
+            num_combinations *= len(possibilities)
+        return num_combinations
+
     def solve(self):
         """
         Solve sudoku
@@ -48,16 +58,11 @@ class Bruteforce2SudokuSolver(BaseBruteforceSudokuSolver):
         # Generate all possible combinations of values for each empty cell
         combinations = product(*self.possibles)
 
-        # Calculate the total number of possible combinations
-        num_combinations = 1
-        for possibilities in self.possibles:
-            num_combinations *= len(possibilities)
-
         print(f"Number of empty cells: {len(self.empty_cells)}")
-        print(f"Number of possible combinations: {num_combinations:.2e}")
+        print(f"Number of possible combinations: {self.n_combinations:.2e}")
 
         # Test each combination
-        for combination in tqdm(combinations, total=num_combinations):
+        for combination in tqdm(combinations, total=self.n_combinations):
             self.apply_values(combination)
             if self.verify_grid():
                 return True

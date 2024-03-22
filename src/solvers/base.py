@@ -1,5 +1,7 @@
 from copy import deepcopy
 
+from utils import count_empty_cells
+
 """
 [[0, 0, 0, 0, 0, 0, 0, 0, 0],
 [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -28,6 +30,21 @@ class BaseSudokuSolver:
         self.original_grid = grid
         self.grid = deepcopy(grid)
         self.display = lambda: display_callback(self)
+
+    @property
+    def n_combinations(self):
+        """
+        Return number of possibilities for the grid
+        """
+        n_empty_cells = count_empty_cells(self.original_grid)
+        return 9 ** n_empty_cells
+    
+    @property
+    def n_empty_cells(self):
+        """
+        Return number of empty cells in the grid
+        """
+        return count_empty_cells(self.original_grid)
 
     def solve(self):
         """
