@@ -63,6 +63,14 @@ Lance le programme
 - interface -> Type d'interface (cli ou gui)
 - --display -d -> Argument optionnel qui permet d'afficher les étapes de résolution en temps réel (fonctionne uniquement en CLI)
 
+### utils.py
+Contient tout le code qui est utilisé dans plusieurs autres fichiers
+- Les chemins des dossiers
+- count_empty_cells(grid) -> Retourne le nombre de cellules vies dans la grille
+- read_file(file_path) -> Lit un fichier et retourne la grille
+- get_solver_class(method) -> Retourne la classe de solver correspondant a une methode
+- generate_grid(input_grid, num_empty_cells) -> Retourne une copie de input_grid avec num_empty_cells cases vides
+
 ### generaate_grid.py
 Génère une grille avec le nombre de cases maquantes passé en argument
 Prend la grille contenue dans grids/input.txt et écrit le resultat dans grids/output.txt
