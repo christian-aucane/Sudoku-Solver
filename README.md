@@ -82,7 +82,7 @@ Génère un fichier JSON contenant les temps d'execution des différentes method
 ### Argument
 - method (optionnel) -> Méthode de résolution a tester
 
-### plot_graphs.py (NECESSITE DE LANCER D'ABORD generate_stats.py)
+### generate_graphs.py (NECESSITE DE LANCER D'ABORD generate_stats.py)
 Génère des graphiques pour chaque méthodes de résolution (utilise matplotlib)
 
 ### show_graphs.py (NECESSITE DE LANCER D'ABORD generate_stats.py)
