@@ -1,8 +1,7 @@
-from random import randint
 import argparse
 
 
-from utils import GRIDS_DIR, read_file
+from utils import GRIDS_DIR, generate_grid, read_file
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -14,19 +13,7 @@ def main():
     args = parse_args()
     grid = read_file(GRIDS_DIR / "input.txt")
 
-    for _ in range(args.num_empty_cases):
-        row = randint(0, 8)
-        col = randint(0, 8)
-        while True:
-            if grid[row][col] == 0:
-                
-                row = randint(0, 8)
-                col = randint(0, 8)
-            else:
-                grid[row][col] = 0
-                break
-
-        print("Empty cell: ", row, col)
+    grid = generate_grid(grid, args.num_empty_cases)
     
     print(*grid, sep="\n")
     with open(GRIDS_DIR / "output.txt", "w") as f:

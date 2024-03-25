@@ -68,3 +68,16 @@ Génère une grille avec le nombre de cases maquantes passé en argument
 Prend la grille contenue dans grids/input.txt et écrit le resultat dans grids/output.txt
 ### Argument
 - num_empty_cases -> Nombre de cases vides que l'on veut dans la grille de sortie
+
+### generate_stats.py
+Génère un fichier JSON contenant les temps d'execution des différentes methodes de résolution pour différents nombres de cases vides (même grille ou on enlève une case suplémentaire a chaque tour)
+### Argument
+- method (optionnel) -> Méthode de résolution a tester
+
+### plot_graphs.py (NECESSITE DE LANCER D'ABORD generate_stats.py)
+Génère des graphiques pour chaque méthodes de résolution (utilise matplotlib)
+
+### show_graphs.py (NECESSITE DE LANCER D'ABORD generate_stats.py)
+Affiche des graphiues intéractifs pour chaque methode de resolution (utilise plotly)
+### Argument
+- method (optionnel) -> Méthode de résolution a afficher
