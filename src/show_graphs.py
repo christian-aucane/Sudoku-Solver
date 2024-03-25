@@ -6,6 +6,7 @@ from plotly.subplots import make_subplots
 
 from utils import STATS_DIR
 
+
 def parse_args():
     """
     Parse command line arguments
@@ -20,6 +21,7 @@ def parse_args():
                         choices=["bruteforce", "bruteforce2", "backtracking"],
                         help="Resolution method")
     return parser.parse_args()
+
 
 def plot_method(data, method):
     """
@@ -57,6 +59,7 @@ def plot_method(data, method):
 
     # Show the interactive plot
     fig.show()
+
 
 def compare_methods(data, *methods):
     # Colors for each method
