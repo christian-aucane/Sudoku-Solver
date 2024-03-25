@@ -106,7 +106,7 @@ class MookSudokuSolver(BaseSudokuSolver):
                 self.grid[self.y][self.x] = num
                 if self.force_brute():
                     return True
-                self.grid[self.y][self.x] = 0  
+                self.grid[self.y][self.x] = 0
 
         return False
 
