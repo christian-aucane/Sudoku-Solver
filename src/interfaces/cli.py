@@ -65,7 +65,7 @@ def main(solver_class, grid, display_steps):
     execution_time = end - start
     
     print_grid(solver)
-
+    
     if grid_solved:
         print(f"Solved in {execution_time} seconds")
     else:

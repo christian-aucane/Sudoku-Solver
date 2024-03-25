@@ -18,7 +18,7 @@ def parse_args():
     """
     parser = argparse.ArgumentParser()
     parser.add_argument("method", nargs="?", default=None,
-                        choices=["bruteforce", "bruteforce2", "backtracking"],
+                        choices=["bruteforce", "bruteforce2", "backtracking", "compare"],
                         help="Resolution method")
     return parser.parse_args()
 

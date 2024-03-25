@@ -34,8 +34,11 @@ class BruteforceSudokuSolver(BaseBruteforceSudokuSolver):
         bool
             True when a solution is found, False otherwise
         """
+
+        # Print number of empty cells and number of possible combinations
         print(f"Number of empty cells: {self.n_empty_cells}")
         print(f"Number of possible combinations: {self.n_combinations:.2e}")
+        
         progress_bar = tqdm(total=self.n_combinations)
         
         while not self.verify_grid():
