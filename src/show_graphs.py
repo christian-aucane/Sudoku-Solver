@@ -58,17 +58,64 @@ def plot_method(data, method):
     # Show the interactive plot
     fig.show()
 
+def compare_methods(data, *methods):
+    # Colors for each method
+    colors = ["blue", "yellow", "red"]
+
+    # Create figure
+    fig = go.Figure()
+
+    max_empty_cells = min(len(data[method]) for method in methods)
+
+    # Plot the curves for each method
+    for method in methods:
+        values = data[method]
+        color = colors[methods.index(method)]
+
+        # Draw the curve
+        x = [int(key) for key in values.keys() if int(key) <= max_empty_cells]
+        y = [values[key]["execution_time"] for key in values.keys() if int(key) <= max_empty_cells]
+        fig.add_trace(go.Scatter(x=x, y=y, mode='lines', name=method, line=dict(color=color)))
+
+        # Draw text
+        fig.add_annotation(
+            x=x[0], y=y[0], text=f"{method} - {y[0]:.2f}", showarrow=False,
+            font=dict(size=8, color=color), xshift=10, yshift=10, xanchor="left", yanchor="bottom"
+        )
+
+    # Add titles and captions
+    fig.update_layout(
+        title=f"Comparison of execution time for {' - '.join(methods)}",
+        xaxis_title="Number of empty cells",
+        yaxis_title="Execution time (seconds)",
+        legend=dict(x=0, y=1, traceorder="normal", font=dict(family="sans-serif", size=12))
+    )
+
+    # Show interactive graph
+    fig.show()
+
+
 def main():
     method = parse_args().method
+    with open(STATS_DIR / f"execution_times.json", "r") as file:
+        data = json.load(file)
     if method is not None:
-        with open(STATS_DIR / f"{method}.json", "r") as file:
-            data = json.load(file)
-        plot_method(data, method)
-    else:
-        for method in ["bruteforce", "bruteforce2", "backtracking"]:
+        if method == "compare":
+            compare_methods(data, "bruteforce", "bruteforce2", "backtracking")
+            compare_methods(data, "bruteforce", "backtracking")
+            compare_methods(data, "bruteforce", "bruteforce2")
+            compare_methods(data, "bruteforce2", "backtracking")
+        else:
             with open(STATS_DIR / f"{method}.json", "r") as file:
                 data = json.load(file)
-            plot_method(data, method)
+            plot_method(data[method], method)
+    else:
+        for method in ["bruteforce", "bruteforce2", "backtracking"]:
+            plot_method(data[method], method)
+        compare_methods(data, "bruteforce", "bruteforce2", "backtracking")
+        compare_methods(data, "bruteforce", "backtracking")
+        compare_methods(data, "bruteforce", "bruteforce2")
+        compare_methods(data, "bruteforce2", "backtracking")
 
 
 if __name__ == "__main__":
