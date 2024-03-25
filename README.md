@@ -59,7 +59,7 @@ Résolveur utilisant une méthode bruteforce améliorée (teste uniquement les v
 Lance le programme
 #### Arguments
 - file_name -> Nom du fichier contenant la grille SANS extrention (entre 1 et 5)
-- method -> Methode de résolution (bruteforce, backtracking ou mook)
+- method -> Methode de résolution (bruteforce2, bruteforce, backtracking ou mook)
 - interface -> Type d'interface (cli ou gui)
 - --display -d -> Argument optionnel qui permet d'afficher les étapes de résolution en temps réel (fonctionne uniquement en CLI)
 
