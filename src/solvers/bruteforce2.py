@@ -90,5 +90,4 @@ class Bruteforce2SudokuSolver(BaseBruteforceSudokuSolver):
             self.apply_values(combination)
             if self.verify_grid():
                 return True
-            self.display()
         return False

@@ -18,7 +18,7 @@ class BaseSudokuSolver:
     """
     Base class for sudoku solver
     """
-    def __init__(self, grid, display_callback=lambda solver: None):
+    def __init__(self, grid):
         """
         When init instance, the position is the first empty cell
 
@@ -29,7 +29,6 @@ class BaseSudokuSolver:
         """
         self.original_grid = grid
         self.grid = deepcopy(grid)
-        self.display = lambda: display_callback(self)
 
     @property
     def n_combinations(self):

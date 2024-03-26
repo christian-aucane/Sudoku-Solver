@@ -3,7 +3,8 @@ import json
 from time import time
 import argparse
 
-from utils import STATS_DIR, GRIDS_DIR, generate_grid, get_solver_class, read_file
+from generate_grids import generate_grid
+from utils import STATS_DIR, GRIDS_DIR, get_grid, get_solver_class, read_file
 
 
 TESTING = {
@@ -130,7 +131,7 @@ def main():
     except FileNotFoundError:
         results = {}
 
-    input_grid = read_file(GRIDS_DIR / "input.txt")
+    input_grid = get_grid("solved", 1)
     
     if args.method is not None:
         results[args.method] = TESTING[args.method](input_grid)

@@ -177,6 +177,7 @@ def display(solver):
     draw_grid(solver)
     pygame.display.flip()
 
+
 def main(solver_class, grid, display_steps):
     """
     Main function
