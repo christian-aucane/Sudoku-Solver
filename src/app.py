@@ -1,3 +1,4 @@
+import sys
 from time import time
 import pygame
 
@@ -75,9 +76,11 @@ class Button:
         return self.rect.collidepoint(pos)
 
 
-
 class SudokuSolverApp:
     def __init__(self):
+        """
+        Initialize the app
+        """
         pygame.init()
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         self.running = True
@@ -85,17 +88,41 @@ class SudokuSolverApp:
         self.grid_selected = ""
         self.solver_class = None
         self.grid = None
+    
+    def draw_title(self, title):
+        """
+        Draw the title on the screen
+        
+        Parameters
+        ----------
+        title : str
+            the title to draw
+        """
+        font = pygame.font.SysFont(None, 50)
+
+        text = font.render(title, True, BLACK)
+        text_rect = text.get_rect(center=(WIDTH // 2, 50))
+        self.screen.blit(text, text_rect)
 
     def run(self):
+        """
+        Run the app
+        """
         while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
-            self.running = self.select_method()
+            self.select_method()
+
+        pygame.quit()
+        sys.exit()
 
     def select_method(self):
+        """
+        Select the solving method
+        """
         buttons = [
-            Button(self.screen, 200, 150 + 50 * i, 140, 50, method, GREEN) for i, method in enumerate(SOLVERS_MODULES)
+            Button(self.screen, 200, 150 + 50 * i + i * 10, 140, 50, method, GREEN) for i, method in enumerate(SOLVERS_MODULES)
         ]
         while self.running:
             for event in pygame.event.get():
@@ -106,42 +133,36 @@ class SudokuSolverApp:
                         if button.is_clicked(event.pos):
                             self.method_selected = button.text
                             self.solver_class = get_solver_class(self.method_selected)
-                            return self.select_grid()
+                            self.select_grid()
                 
             self.screen.fill(WHITE)
 
-            self.draw_title("Sudoku Solver")
+            self.draw_title("Select Solving Method")
 
             for button in buttons:
                 button.draw()
 
             pygame.display.update()
 
-    def draw_title(self, title):
-        font = pygame.font.SysFont(None, 50)
-
-        text = font.render(title, True, BLACK)
-        text_rect = text.get_rect(center=(WIDTH // 2, 50))
-        self.screen.blit(text, text_rect)
-
     def select_grid(self):
+
         buttons = [
-            Button(self.screen, 200, 150 + 50 * i, 140, 50, str(i), GREEN) for i in range(1, 6)
+            Button(self.screen, 200, 150 + 50 * (i-1) + i * 10, 140, 50, str(i), GREEN) for i in range(1, 6)
         ]
         while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_BACKSPACE:
-                    return self.select_method()
+                    self.select_method()
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     for button in buttons:
                         if button.is_clicked(event.pos):
                             self.grid_selected = button.text
                             self.grid = get_grid(self.method_selected, self.grid_selected)
-                            return self.solve_grid()
+                            self.solve_grid()
             self.screen.fill(WHITE)
-            self.draw_title(f"{self.method_selected.capitalize()} Grids")
+            self.draw_title("Select Grid")
             for button in buttons:
                 button.draw()
             pygame.display.update()
@@ -160,13 +181,13 @@ class SudokuSolverApp:
                 if event.type == pygame.QUIT:
                     self.running = False
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_BACKSPACE:
-                    return self.select_grid()
+                    self.select_grid()
                 elif event.type == pygame.MOUSEBUTTONDOWN and button.is_clicked(event.pos):
                     if not finish:
                         # Change the button color and text
                         button.color = RED
                         button.text = "Solving ..."
-                        self.update_screen(button, solver, finish, execution_time, grid_solved)
+                        self.update_grid(button, solver, finish, execution_time, grid_solved)
 
                         # Solve the grid
                         start = time()
@@ -177,10 +198,9 @@ class SudokuSolverApp:
                         print_grid(solver)
                         print(f"Runtime: {execution_time} seconds")
 
-            
-            self.update_screen(button, solver, finish, execution_time, grid_solved)
+            self.update_grid(button, solver, finish, execution_time, grid_solved)
 
-    def update_screen(self, button, solver, finish, execution_time, grid_solved):
+    def update_grid(self, button, solver, finish, execution_time, grid_solved):
         """
         Update the screen
 
@@ -198,11 +218,7 @@ class SudokuSolverApp:
         # Clear the screen
         self.screen.fill(WHITE)
 
-        # Show title 'Sudoku Solver'
-        font = pygame.font.SysFont(None, 50)
-        text = font.render("Sudoku Solver", True, BLACK)
-        text_rect = text.get_rect(center=(WIDTH // 2, 50))
-        self.screen.blit(text, text_rect)
+        self.draw_title(f"Solve grid {self.grid_selected} with {self.method_selected.capitalize()}")
 
         # Draw the grid
         self.draw_grid(solver, finish)
