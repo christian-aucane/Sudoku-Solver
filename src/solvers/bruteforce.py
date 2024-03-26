@@ -45,6 +45,5 @@ class BruteforceSudokuSolver(BaseBruteforceSudokuSolver):
             self.apply_values(self.values)
             if not self.next_values():
                 return False
-            self.display()
             progress_bar.update(1)
         return True

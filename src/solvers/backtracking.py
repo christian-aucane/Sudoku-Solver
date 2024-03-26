@@ -26,9 +26,7 @@ class BacktrackingSudokuSolver(BaseSudokuSolver):
         for num in range(1, 10):
             if self.is_valid(row, col, num):
                 self.grid[row][col] = num
-                self.display()
                 if self.solve_recursive():
                     return True
                 self.grid[row][col] = 0
-                self.display()
         return False
