@@ -83,6 +83,7 @@ class SudokuSolverApp:
         """
         pygame.init()
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
+        pygame.display.set_caption("Sudoku Solver")
         self.running = True
         self.method_selected = ""
         self.grid_selected = ""
