@@ -9,12 +9,9 @@ def plot_method(data, method):
     """
     Plot execution time and number of combinations for a given method and save the figure in the GRAPHS_DIR folder
     
-    Parameters
-    ----------
-    data : dict
-        Dictionary containing the execution time and number of combinations for each number of empty cells
-    method : str
-        Method for which to plot the execution time and number of combinations
+    Args:
+        data (dict): Dictionary containing the execution time and number of combinations for each number of empty cells
+        method (str): Method for which to plot the execution time and number of combinations
     """
     fig, ax1 = plt.subplots(figsize=(10, 6))
     
@@ -51,7 +48,13 @@ def plot_method(data, method):
 
 
 def compare_methods(data, *methods):
+    """
+    Plot the execution time of each method and save the figure in the GRAPHS_DIR folder
     
+    Args:
+        data (dict): Dictionary containing the execution time for each method
+        *methods (str): Methods for which to plot the execution time
+    """
     # Colors for each method
     colors = ["b", "y", "r"]
 
@@ -83,6 +86,9 @@ def compare_methods(data, *methods):
 
 
 def main():
+    """
+    Main function
+    """
     print("Plotting graphs...")
     with open(STATS_DIR / "execution_times.json", "r") as file:
         data = json.load(file)

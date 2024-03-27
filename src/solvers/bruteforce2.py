@@ -8,7 +8,34 @@ from .base import BaseBruteforceSudokuSolver
 
 
 class Bruteforce2SudokuSolver(BaseBruteforceSudokuSolver):
+    """
+    Sudoku solver using a modified brute-force approach.
+
+    This class extends the functionality of the BaseBruteforceSudokuSolver class to provide
+    a solver for Sudoku puzzles using a modified brute-force approach.
+
+    :param grid: A 9x9 list of integers representing the Sudoku puzzle.
+    :type grid: list
+
+    Attributes:
+        original_grid (list): The original unsolved Sudoku grid.
+        grid (list): The current state of the Sudoku grid being solved.
+        empty_cells (list): A list of coordinates of the empty cells in the grid.
+        possibles (list): A list of all possible combinations of values for each empty cell.
+
+    Methods:
+        possible_values: Return possible values for a cell.
+        get_all_possibles: Return all possible combinations of values for each empty cell.
+        n_combinations: Return the number of possible combinations for the grid.
+        solve: Solve the Sudoku puzzle using a modified brute-force approach.
+    """
     def __init__(self, *args, **kwargs):
+        """
+        When init instance, values is 1 for each empty cells
+
+        Args:
+            grid (list): 9x9 list of integers
+        """
         super().__init__(*args, **kwargs)
 
         self.possibles = self.get_all_possibles()
@@ -17,17 +44,12 @@ class Bruteforce2SudokuSolver(BaseBruteforceSudokuSolver):
         """
         Return possible values for a cell
         
-        Parameters
-        ----------
-        row : int
-            Row index
-        col : int
-            Column index
+        Args:
+            row (int): row index
+            col (int): column index
 
-        Returns
-        -------
-        list
-            List of possible values
+        Returns:
+            list: possible values
         """
         values = [1, 2, 3, 4, 5, 6, 7, 8, 9]
         for i in range(9):
@@ -54,10 +76,8 @@ class Bruteforce2SudokuSolver(BaseBruteforceSudokuSolver):
         """
         Return all possible combinations of values for each empty cell
         
-        Returns
-        -------
-        list
-            List of lists of possible values
+        Returns:
+            list: list of lists of possible values
         """
         possibles = []
         for row, col in self.empty_cells:
@@ -68,6 +88,9 @@ class Bruteforce2SudokuSolver(BaseBruteforceSudokuSolver):
     def n_combinations(self):
         """
         Return number of possibilities for the grid
+
+        Returns:
+            int: Number of possibilities
         """
         num_combinations = 1
         for possibilities in self.possibles:
@@ -77,6 +100,9 @@ class Bruteforce2SudokuSolver(BaseBruteforceSudokuSolver):
     def solve(self):
         """
         Solve sudoku
+
+        Returns:
+            bool: True when a solution is found, False otherwise
         """
         # Generate all possible combinations of values for each empty cell
         combinations = product(*self.possibles)

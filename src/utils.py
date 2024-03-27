@@ -1,7 +1,6 @@
 from pathlib import Path
 from importlib import import_module
-from copy import deepcopy
-from random import randint
+
 
 BASE_DIR = Path(__file__).parent.parent
 ORIGINAL_GRIDS_DIR = BASE_DIR / "original_grids"
@@ -20,10 +19,10 @@ def read_file(file_path):
     """
     Read grid from file
     
-    Parameters
-    ----------
-    file_path : str
-        path of the file
+    Args:
+        file_path (str): path of the file
+    Returns:
+        list: 9x9 list of integers
     """
     grid = []
     with open(file_path, 'r') as f:
@@ -37,15 +36,11 @@ def get_solver_class(method):
     """
     Get solver class
     
-    Parameters
-    ----------
-    method : str
-        name of the method
+    Args:
+        method (str): name of the method
 
-    Returns
-    -------
-    class
-        solver class
+    Returns:
+        class: solver class
     """
     solver_module = import_module(f"solvers.{method}")
     return getattr(solver_module, f"{method.capitalize()}SudokuSolver")
@@ -55,17 +50,12 @@ def get_grid(method, grid):
     """
     Get grid
     
-    Parameters
-    ----------
-    method : str
-        name of the method
-    grid : str
-        name of the grid
+    Args:
+        method (str): name of the method
+        grid (str): name of the grid without extention
 
-    Returns
-    -------
-    list
-        9x9 list of integers
+    Returns:
+        list: 9x9 list of integers
     """
     grid = read_file(GRIDS_DIR / method / f"{grid}.txt")
     return grid
@@ -73,12 +63,10 @@ def get_grid(method, grid):
 
 def print_grid(solver):
     """
-    Print the grid
+    Print the grid in terminal
     
-    Parameters
-    ----------
-    solver : BaseSudokuSolver child
-        the sudoku solver
+    Args:
+        solver (BaseSudokuSolver child): the sudoku solver
     """
     for i in range(len(solver.original_grid)):
         # Print dashes to separate 3x3 blocks

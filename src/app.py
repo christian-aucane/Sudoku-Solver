@@ -24,26 +24,40 @@ MARGIN_Y = (HEIGHT - GRID_HEIGHT) // 2
 
 class Button:
     """
-    Button class
+    Button class for creating interactive buttons on a Pygame screen.
+
+    Args:
+        screen (pygame.Surface): The screen to draw the button on.
+        x (int): The x coordinate of the button.
+        y (int): The y coordinate of the button.
+        width (int): The width of the button.
+        height (int): The height of the button.
+        text (str): The text displayed on the button.
+        color (tuple): The color of the button.
+
+    Attributes:
+        rect (pygame.Rect): The rectangle representing the button.
+        text (str): The text displayed on the button.
+        color (tuple): The color of the button.
+        screen (pygame.Surface): The screen to draw the button on.
+
+    Methods:
+        draw: Draw the button on the screen.
+        is_clicked: Check if the button is clicked given a mouse position.
+
     """
     def __init__(self, screen, x, y, width, height, text, color):
         """
         Initialize the button
         
-        Parameters
-        ----------
-        x : int
-            x coordinate of the button
-        y : int
-            y coordinate of the button
-        width : int
-            width of the button
-        height : int
-            height of the button
-        text : str
-            text of the button
-        color : tuple
-            color of the button
+        Args:
+            screen (pygame.Surface): the screen to draw on
+            x (int): x coordinate of the button
+            y (int): y coordinate of the button
+            width (int): width of the button
+            height (int): height of the button
+            text (str): text of the button
+            color (tuple): color of the button
         """
         self.rect = pygame.Rect(x, y, width, height)
         self.text = text
@@ -53,11 +67,6 @@ class Button:
     def draw(self):
         """
         Draw the button on the screen
-        
-        Parameters
-        ----------
-        screen : pygame.Surface
-            the screen to draw on
         """
         pygame.draw.rect(self.screen, self.color, self.rect)
         font = pygame.font.SysFont(None, 30)
@@ -68,15 +77,36 @@ class Button:
     def is_clicked(self, pos):
         """
         
-        Parameters
-        ----------
-        pos : tuple
-            the position of the mouse
+        Args:
+            pos (tuple): the position of the mouse
+
+        Returns:
+            bool: True if the button is clicked, False otherwise
         """
         return self.rect.collidepoint(pos)
 
 
 class SudokuSolverApp:
+    """
+    Main application for solving Sudoku puzzles using Pygame.
+
+    Attributes:
+        screen (pygame.Surface): The Pygame screen surface.
+        running (bool): Flag indicating if the application is running.
+        method_selected (str): The solving method selected by the user.
+        grid_selected (str): The Sudoku grid selected by the user.
+        solver_class (class): The class of the selected Sudoku solver.
+        grid (list): The Sudoku grid to be solved.
+
+    Methods:
+        draw_title: Draw the title on the screen.
+        run: Run the Sudoku solver application.
+        select_method: Select the solving method.
+        select_grid: Select the Sudoku grid to solve.
+        solve_grid: Solve the selected Sudoku grid.
+        update_grid: Update the screen display during solving.
+        draw_grid: Draw the Sudoku grid on the screen.
+    """
     def __init__(self):
         """
         Initialize the app
@@ -94,10 +124,8 @@ class SudokuSolverApp:
         """
         Draw the title on the screen
         
-        Parameters
-        ----------
-        title : str
-            the title to draw
+        Args:
+            title (str): the title
         """
         font = pygame.font.SysFont(None, 50)
 
@@ -146,7 +174,6 @@ class SudokuSolverApp:
             pygame.display.update()
 
     def select_grid(self):
-
         buttons = [
             Button(self.screen, 200, 150 + 50 * (i-1) + i * 10, 140, 50, str(i), GREEN) for i in range(1, 6)
         ]
@@ -197,7 +224,7 @@ class SudokuSolverApp:
                         execution_time = end - start
                         finish = True
                         print_grid(solver)
-                        print(f"Runtime: {execution_time} seconds")
+                        print(f"Grid {self.grid_selected} solved in {execution_time} seconds with {self.method_selected}!")
 
             self.update_grid(button, solver, finish, execution_time, grid_solved)
 
@@ -205,16 +232,12 @@ class SudokuSolverApp:
         """
         Update the screen
 
-        Parameters
-        ----------
-        button : Button
-            the button
-        solver : BaseSudokuSolver child
-            the sudoku solver
-        finish : bool
-            if the grid is finish
-        execution_time : float
-            the execution time
+        Args:
+            button (Button): the button
+            solver (BaseSudokuSolver child): the sudoku solver
+            finish (bool): if the grid is finish
+            execution_time (float): the execution time
+            grid_solved (bool): if the grid is solved
         """
         # Clear the screen
         self.screen.fill(WHITE)
@@ -243,12 +266,9 @@ class SudokuSolverApp:
         """
         Draw the grid on the screen
 
-        Parameters
-        ----------
-        solver : BaseSudokuSolver child
-            the sudoku solver
-        solved : bool
-            if the grid is solved
+        Args:
+            solver (BaseSudokuSolver child): the sudoku solver
+            solved (bool): if the grid is solved
         """
         font = pygame.font.SysFont(None, 40)
 

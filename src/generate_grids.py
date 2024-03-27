@@ -9,17 +9,12 @@ def generate_grid(input_grid, num_empty_cells):
     """
     Generate a grid with num_empty_cells empty cells
 
-    Parameters
-    ----------
-    input_grid : list
-        9x9 list of integers - Full grid without empty cells
-    num_empty_cells : int
-        number of empty cells
+    Args:
+        input_grid (list): 9x9 list of integers
+        num_empty_cells (int): number of empty cells
 
-    Returns
-    -------
-    list
-        9x9 list of integers with num_empty_cells empty cells
+    Returns:
+        list: 9x9 list of integers with num_empty_cells empty cells
     """
     output_grid = deepcopy(input_grid)
     while count_empty_cells(output_grid) < num_empty_cells:
@@ -32,6 +27,9 @@ def generate_grid(input_grid, num_empty_cells):
 
 
 def solve_grids():
+    """
+    Solve all grids
+    """
     output_dir = GRIDS_DIR / "solved"
     solver_class = get_solver_class("backtracking")
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -41,13 +39,23 @@ def solve_grids():
         solver.solve()
         write_grid_in_file(solver.grid, output_dir / f"{i}.txt")
 
+
 def write_grid_in_file(grid, file_path):
+    """
+    Write grid in file
+    
+    Args:
+        grid (list): 9x9 list of integers
+        file_path (str): path of the file
+    """
     with open(file_path, "w") as f:
         for row in grid:
             f.write("".join([str(x) if x != 0 else "_" for x in row]) + "\n")
 
 def main():
-
+    """
+    Main function
+    """
     GRIDS_DIR.mkdir(parents=True, exist_ok=True)
     print("Solving grids...")
     

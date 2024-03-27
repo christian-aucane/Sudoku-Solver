@@ -11,10 +11,8 @@ def parse_args():
     """
     Parse command line arguments
     
-    Returns
-    -------
-    args : argparse.Namespace
-        command line arguments
+    Returns:
+        argparse.Namespace: command line arguments
     """
     parser = argparse.ArgumentParser()
     parser.add_argument("method", nargs="?", default=None,
@@ -27,12 +25,9 @@ def plot_method(data, method):
     """
     Plot execution time and number of combinations for a given method
     
-    Parameters
-    ----------
-    data : dict
-        Dictionary containing the execution time and number of combinations for each number of empty cells
-    method : str
-        Method for which to plot the execution time and number of combinations
+    Args:
+        data (dict): Dictionary containing the execution time and number of combinations for each number of empty cells
+        method (str): Method for which to plot the execution time and number of combinations
     """
     # Extracting data for plotting
     empty_cells = sorted(map(int, data.keys()))
@@ -62,6 +57,13 @@ def plot_method(data, method):
 
 
 def compare_methods(data, *methods):
+    """
+    Plot the execution time of each method and save the figure in the GRAPHS_DIR folder
+    
+    Args:
+        data (dict): Dictionary containing the execution time for each method
+        *methods (str): Methods for which to plot the execution time
+    """
     # Colors for each method
     colors = ["blue", "yellow", "red"]
 
@@ -99,6 +101,9 @@ def compare_methods(data, *methods):
 
 
 def main():
+    """
+    Main function
+    """
     method = parse_args().method
     with open(STATS_DIR / f"execution_times.json", "r") as file:
         data = json.load(file)

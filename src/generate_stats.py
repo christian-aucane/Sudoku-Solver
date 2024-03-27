@@ -18,10 +18,8 @@ def parse_args():
     """
     Parse command line arguments
     
-    Returns
-    -------
-    args : argparse.Namespace
-        command line arguments
+    Returns:
+        argparse.Namespace: command line arguments
     """
     parser = argparse.ArgumentParser()
     parser.add_argument("method", nargs="?", default=None, help="Resolution method")
@@ -32,19 +30,11 @@ def test_solver(grid, solver_class):
     """
     Test the solver
     
-    Parameters
-    ----------
-    grid : list
-        9x9 list of integers
-    solver_class : class
-        Class of the solver to test
-        
-    Returns
-    -------
-    n_combinations : int
-        Number of combinations
-    execution_time : float
-        Execution time
+    Args:
+        grid (list): 9x9 list of integers
+
+    Returns:
+        tuple: number of combinations and execution time
     """
     solver = solver_class(grid)
     start = time()
@@ -56,20 +46,14 @@ def test_solver(grid, solver_class):
 def test_method(input_grid, method_name, max_empty_cells):
     """
     Test the method
-    
-    Parameters
-    ----------
-    input_grid : list
-        9x9 list of integers
-    method_name : str
-        Name of the method
-    max_empty_cells : int
-        Maximum number of empty cells
-        
-    Returns
-    -------
-    results : dict
-        Dictionary with the results
+
+    Args:
+        input_grid (list): 9x9 list of integers
+        method_name (str): Name of the method
+        max_empty_cells (int): Maximum number of empty cells
+
+    Returns:
+        dict: Dictionary with the results
     """
     print(f"Testing {method_name}")
 
@@ -97,19 +81,13 @@ def resolution_method(input_grid, method_name, max_empty_cells):
     """
     Test the resolution method and save the results in a JSON file
 
-    Parameters
-    ----------
-    input_grid : list
-        9x9 list of integers
-    method_name : str
-        Name of the method
-    max_empty_cells : int
-        Maximum number of empty cells
+    Args:
+        input_grid (list): 9x9 list of integers
+        method_name (str): Name of the method
+        max_empty_cells (int): Maximum number of empty cells
 
-    Returns
-    -------
-    results : dict
-        Dictionary with the results
+    Returns:
+        dict: Dictionary with the results
     """
     results = test_method(
         input_grid=input_grid, method_name=method_name, 
@@ -122,6 +100,9 @@ def resolution_method(input_grid, method_name, max_empty_cells):
 
 
 def main():
+    """
+    Main function
+    """
     args = parse_args()
 
     STATS_DIR.mkdir(parents=True, exist_ok=True)
