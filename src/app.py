@@ -69,7 +69,7 @@ class Button:
         Draw the button on the screen
         """
         pygame.draw.rect(self.screen, self.color, self.rect)
-        font = pygame.font.SysFont(None, 30)
+        font = pygame.font.SysFont("", 30)
         text_surface = font.render(self.text, True, BLACK)
         text_rect = text_surface.get_rect(center=self.rect.center)
         self.screen.blit(text_surface, text_rect)
@@ -85,6 +85,15 @@ class Button:
             bool: True if the button is clicked, False otherwise
         """
         return self.rect.collidepoint(pos)
+
+    def set_color(self, color):
+        """
+        Change the button color
+
+        Args:
+            color (tuple): the new color
+        """
+        self.color = color
 
 
 class SudokuSolverApp:
@@ -128,7 +137,7 @@ class SudokuSolverApp:
         Args:
             title (str): the title
         """
-        font = pygame.font.SysFont(None, 50)
+        font = pygame.font.SysFont("", 50)
 
         text = font.render(title, True, BLACK)
         text_rect = text.get_rect(center=(WIDTH // 2, 50))
@@ -227,7 +236,7 @@ class SudokuSolverApp:
                 elif event.type == pygame.MOUSEBUTTONDOWN \
                         and not finish and button.is_clicked(event.pos):
                     # Change the button color and text
-                    button.color = RED
+                    button.set_color(RED)
                     button.text = "Solving ..."
                     self.update_grid(
                         button, solver, finish, execution_time, grid_solved
@@ -270,7 +279,7 @@ class SudokuSolverApp:
         # Draw the grid
         self.draw_grid(solver, finish)
 
-        font = pygame.font.SysFont(None, 30)
+        font = pygame.font.SysFont("", 30)
 
         # Show button or finish message with execution time
         if not finish:
@@ -297,7 +306,7 @@ class SudokuSolverApp:
             solver (BaseSudokuSolver child): the sudoku solver
             solved (bool): if the grid is solved
         """
-        font = pygame.font.SysFont(None, 40)
+        font = pygame.font.SysFont("", 40)
 
         # Fill the grid with values
         for i in range(9):
