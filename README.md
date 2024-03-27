@@ -2,54 +2,91 @@
 A Sudoku Solver using Brute Force and Backtracking
 
 
-## Fichiers
+## Install the project and launch the application
+### To install (once only)
+- Open git bash where you want to install
+- Type commands :
+  - `git clone https://github.com/christian-aucane/Sudoku-Solver.git`
+  - `cd Sudoku-Solver`
+  - `source init.bash`
+### To launch the application (each time it is launched)
+- Open git bash at project root
+- Type command :
+  - `source run.bash`
+
+
+## TODO
+
+### Section Analyse dans le README
+- Nombre de combinaisons exponentielle
+- calcul du nombre de combinaisons selon le nombre de case vide
+- Calcul de la complexité algorithmique
+- comparaison des algos
+- graphiques
+- ...?
+
+### presentation
+- revoir graphique backtracking 
+
+### Autre methode de resolution
+- calculer valeurs possibles de chaque case
+- dans les cases ou une seule posibilité mettre la valeur
+- recalculer
+- est-ce que ca marche ?
+- si non trouver que faire des valeurs possibles
+
+
+## Files
 
 ### solvers/
 #### base.py
 ##### BaseSudokuSolver
-Classe de base pour tous les résolveurs
+Base class for all solvers
 ##### BaseBruteforceSudokuSolver
-Hérite de BaseSudokuSolver
-Classe de base pour les résolveurs utilisant la méthode bruteforce
+Inherits from BaseSudokuSolver
+Base class for solvers using the bruteforce method
 
 #### backtracking.py
 ##### BacktrackingSudokuSolver
-Hérite de BaseSudokuSolver
-Résolveur utilisant la méthode backtracking
+Inherits from BaseSudokuSolver
+Solver using the backtracking method
 
 #### bruteforce.py
 ##### BruteforceSudokuSolver
-Hérite de BaseBruteforceSudokuSolver
-Résolveur utilisant la méthode bruteforce "classique" (teste toute les valeurs possibles de 1 a 9 dans chaque case)
+Inherits from BaseBruteforceSudokuSolver
+Solver using the "classic" bruteforce method (tests all possible values from 1 to 9 in each cell)
 
 #### bruteforce2.py
 ##### Bruteforce2SudokuSolver
-Hérite de BaseBruteforceSudokuSolver
-Résolveur utilisant une méthode bruteforce améliorée (teste uniquement les valeurs possibles de chaque case)
-  
-### app.py (NECESSITE DE LANCER D'ABORD generate_grids.py)
-Lance le programme
+Inherits from BaseBruteforceSudokuSolver
+Improved bruteforce solver (tests only possible values for each cell)
+
+### app.py (REQUIRES TO FIRST LAUNCH generate_grids.py)
+Launch program
 
 ### utils.py
-Contient tout le code qui est utilisé dans plusieurs autres fichiers
-- Les chemins des dossiers
-- count_empty_cells(grid) -> Retourne le nombre de cellules vies dans la grille
-- read_file(file_path) -> Lit un fichier et retourne la grille
-- get_solver_class(method) -> Retourne la classe de solver correspondant a une methode
-- generate_grid(input_grid, num_empty_cells) -> Retourne une copie de input_grid avec num_empty_cells cases vides
+Contains all the code used in several other files
+- Folder paths
+- count_empty_cells(grid) -> Returns the number of life cells in the grid
+- read_file(file_path) -> Reads a file and returns the grid
+- get_solver_class(method) -> Returns the solver class corresponding to a method
+- generate_grid(input_grid, num_empty_cells) -> Returns a copy of input_grid with num_empty_cells empty cells
 
 ### generate_grids.py
-Génère des grilles pour chaque methode de resolution
+Generates grids for each solving method
 
-### generate_stats.py (NECESSITE DE LANCER D'ABORD generate_grids.py)
-Génère un fichier JSON contenant les temps d'execution des différentes methodes de résolution pour différents nombres de cases vides (même grille ou on enlève une case suplémentaire a chaque tour)
+### generate_stats.py (REQUIRES TO FIRST LAUNCH generate_grids.py)
+Generates a JSON file containing the execution times of the different solving methods for different numbers of empty cells (same grid, with one additional cell removed each round).
 #### Argument
-- method (optionnel) -> Méthode de résolution a tester
+- method (optionnel) -> Solving method to test
 
-### generate_graphs.py (NECESSITE DE LANCER D'ABORD generate_stats.py)
-Génère des graphiques pour chaque méthodes de résolution (utilise matplotlib)
+### generate_graphs.py (REQUIRES TO FIRST LAUNCH generate_stats.py)
+Generates graphs for each solving method (uses matplotlib)
 
-### show_graphs.py (NECESSITE DE LANCER D'ABORD generate_stats.py)
-Affiche des graphiues intéractifs pour chaque methode de resolution (utilise plotly)
+### show_graphs.py (REQUIRES TO FIRST LAUNCH generate_stats.py)
+Displays interactive graphs for each solving method (uses plotly)
 #### Argument
-- method (optionnel) -> Méthode de résolution a afficher
+- method (optionnel) -> Solving method to display
+
+## Analyse
+TODO : Ajouter analyse des algos, graphiques ...
