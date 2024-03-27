@@ -11,7 +11,8 @@ class Bruteforce2SudokuSolver(BaseBruteforceSudokuSolver):
     """
     Sudoku solver using a modified brute-force approach.
 
-    This class extends the functionality of the BaseBruteforceSudokuSolver class to provide
+    This class extends the functionality of the
+    BaseBruteforceSudokuSolver class to provide
     a solver for Sudoku puzzles using a modified brute-force approach.
 
     :param grid: A 9x9 list of integers representing the Sudoku puzzle.
@@ -20,13 +21,17 @@ class Bruteforce2SudokuSolver(BaseBruteforceSudokuSolver):
     Attributes:
         original_grid (list): The original unsolved Sudoku grid.
         grid (list): The current state of the Sudoku grid being solved.
-        empty_cells (list): A list of coordinates of the empty cells in the grid.
-        possibles (list): A list of all possible combinations of values for each empty cell.
+        empty_cells (list): A list of coordinates
+            of the empty cells in the grid.
+        possibles (list): A list of all possible combinations
+            of values for each empty cell.
 
     Methods:
         possible_values: Return possible values for a cell.
-        get_all_possibles: Return all possible combinations of values for each empty cell.
-        n_combinations: Return the number of possible combinations for the grid.
+        get_all_possibles: Return all possible combinations
+            of values for each empty cell.
+        n_combinations: Return the number of
+            possible combinations for the grid.
         solve: Solve the Sudoku puzzle using a modified brute-force approach.
     """
     def __init__(self, *args, **kwargs):
@@ -43,7 +48,7 @@ class Bruteforce2SudokuSolver(BaseBruteforceSudokuSolver):
     def possible_values(self, row, col):
         """
         Return possible values for a cell
-        
+
         Args:
             row (int): row index
             col (int): column index
@@ -65,17 +70,20 @@ class Bruteforce2SudokuSolver(BaseBruteforceSudokuSolver):
                     pass
         for i in range(3):
             for j in range(3):
-                if self.grid[i + (row - row % 3)][j + (col - col % 3)] in values:
+                if self.grid[i + (row - row % 3)][j + (col - col % 3)]\
+                        in values:
                     try:
-                        values.remove(self.grid[i + (row - row % 3)][j + (col - col % 3)])
+                        values.remove(
+                            self.grid[i + (row - row % 3)][j + (col - col % 3)]
+                        )
                     except ValueError:
                         pass
         return values
-    
+
     def get_all_possibles(self):
         """
         Return all possible combinations of values for each empty cell
-        
+
         Returns:
             list: list of lists of possible values
         """

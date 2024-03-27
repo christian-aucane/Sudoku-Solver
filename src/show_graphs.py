@@ -10,47 +10,70 @@ from utils import STATS_DIR
 def parse_args():
     """
     Parse command line arguments
-    
+
     Returns:
         argparse.Namespace: command line arguments
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument("method", nargs="?", default=None,
-                        choices=["bruteforce", "bruteforce2", "backtracking", "compare"],
-                        help="Resolution method")
+    parser.add_argument(
+        "method", nargs="?", default=None,
+        choices=["bruteforce", "bruteforce2", "backtracking", "compare"],
+        help="Resolution method"
+    )
     return parser.parse_args()
 
 
 def plot_method(data, method):
     """
     Plot execution time and number of combinations for a given method
-    
+
     Args:
-        data (dict): Dictionary containing the execution time and number of combinations for each number of empty cells
-        method (str): Method for which to plot the execution time and number of combinations
+        data (dict): Dictionary containing the execution time
+            and number of combinations for each number of empty cells
+        method (str): Method for which to plot
+            the execution time and number of combinations
     """
     # Extracting data for plotting
     empty_cells = sorted(map(int, data.keys()))
-    exec_times = [data[str(empty_count)]['execution_time'] for empty_count in empty_cells]
-    n_combinations = [data[str(empty_count)]['n_combinations'] for empty_count in empty_cells]
+    exec_times = [
+        data[str(empty_count)]['execution_time'] for empty_count in empty_cells
+    ]
+    n_combinations = [
+        data[str(empty_count)]['n_combinations'] for empty_count in empty_cells
+    ]
 
     # Create a Plotly figure with subplots
     fig = make_subplots(specs=[[{"secondary_y": True}]])
-    
+
     # Add traces for Execution Time
-    fig.add_trace(go.Scatter(x=empty_cells, y=exec_times, mode='lines+markers', name="Execution Time", line=dict(color='blue')), secondary_y=False)
+    fig.add_trace(
+        go.Scatter(
+            x=empty_cells, y=exec_times,
+            mode='lines+markers', name="Execution Time",
+            line=dict(color='blue')
+        ), secondary_y=False
+    )
 
     # Add traces for Number of Combinations
-    fig.add_trace(go.Scatter(x=empty_cells, y=n_combinations, mode='lines+markers', name="Number of Combinations", line=dict(color='red')), secondary_y=True)
+    fig.add_trace(
+        go.Scatter(
+            x=empty_cells, y=n_combinations,
+            mode='lines+markers', name="Number of Combinations",
+            line=dict(color='red')
+        ), secondary_y=True
+    )
 
     # Set the layout
-    fig.update_layout(title=f"Execution Time and Number of Combinations for {method.capitalize()}",
-                      xaxis_title="Number of Empty Cells",
-                      yaxis_title="Execution Time (seconds)",
-                      yaxis=dict(title="Number of Combinations", color="red"),
-                      legend=dict(x=0.02, y=0.98),
-                      margin=dict(l=50, r=50, t=50, b=50),
-                      hovermode="x unified")
+    fig.update_layout(
+        title=f"Execution Time and Number of \
+            Combinations for {method.capitalize()}",
+        xaxis_title="Number of Empty Cells",
+        yaxis_title="Execution Time (seconds)",
+        yaxis=dict(title="Number of Combinations", color="red"),
+        legend=dict(x=0.02, y=0.98),
+        margin=dict(l=50, r=50, t=50, b=50),
+        hovermode="x unified"
+    )
 
     # Show the interactive plot
     fig.show()
@@ -58,8 +81,9 @@ def plot_method(data, method):
 
 def compare_methods(data, *methods):
     """
-    Plot the execution time of each method and save the figure in the GRAPHS_DIR folder
-    
+    Plot the execution time of each method
+    and save the figure in the GRAPHS_DIR folder
+
     Args:
         data (dict): Dictionary containing the execution time for each method
         *methods (str): Methods for which to plot the execution time
@@ -79,13 +103,29 @@ def compare_methods(data, *methods):
 
         # Draw the curve
         x = [int(key) for key in values.keys() if int(key) <= max_empty_cells]
-        y = [values[key]["execution_time"] for key in values.keys() if int(key) <= max_empty_cells]
-        fig.add_trace(go.Scatter(x=x, y=y, mode='lines', name=method, line=dict(color=color)))
+        y = [
+            values[key]["execution_time"]
+            for key in values.keys()
+            if int(key) <= max_empty_cells
+        ]
+        fig.add_trace(
+            go.Scatter(
+                x=x, y=y,
+                mode='lines',
+                name=method,
+                line=dict(color=color)
+            )
+        )
 
         # Draw text
         fig.add_annotation(
-            x=x[0], y=y[0], text=f"{method} - {y[0]:.2f}", showarrow=False,
-            font=dict(size=8, color=color), xshift=10, yshift=10, xanchor="left", yanchor="bottom"
+            x=x[0], y=y[0],
+            text=f"{method} - {y[0]:.2f}",
+            showarrow=False,
+            font=dict(size=8, color=color),
+            xshift=10, yshift=10,
+            xanchor="left",
+            yanchor="bottom"
         )
 
     # Add titles and captions
@@ -93,7 +133,13 @@ def compare_methods(data, *methods):
         title=f"Comparison of execution time for {' - '.join(methods)}",
         xaxis_title="Number of empty cells",
         yaxis_title="Execution time (seconds)",
-        legend=dict(x=0, y=1, traceorder="normal", font=dict(family="sans-serif", size=12))
+        legend=dict(
+            x=0, y=1,
+            traceorder="normal",
+            font=dict(
+                family="sans-serif",
+                size=12)
+            )
     )
 
     # Show interactive graph
@@ -105,7 +151,9 @@ def main():
     Main function
     """
     method = parse_args().method
-    with open(STATS_DIR / f"execution_times.json", "r") as file:
+    with open(
+        STATS_DIR / "execution_times.json", "r"
+    ) as file:
         data = json.load(file)
     if method is not None:
         if method == "compare":

@@ -5,7 +5,8 @@ class BacktrackingSudokuSolver(BaseSudokuSolver):
     """
     Sudoku solver using a backtracking algorithm.
 
-    This class extends the functionality of the BaseSudokuSolver class to provide
+    This class extends the functionality
+    of the BaseSudokuSolver class to provide
     a solver for Sudoku puzzles using a backtracking algorithm.
 
     :param grid: A 9x9 list of integers representing the Sudoku puzzle.
@@ -17,7 +18,8 @@ class BacktrackingSudokuSolver(BaseSudokuSolver):
 
     Methods:
         solve: Solve the Sudoku puzzle using a backtracking algorithm.
-        solve_recursive: Solve the Sudoku puzzle recursively using backtracking.
+        solve_recursive: Solve the Sudoku puzzle
+            recursively using backtracking.
     """
     def solve(self):
         """
@@ -35,7 +37,7 @@ class BacktrackingSudokuSolver(BaseSudokuSolver):
     def solve_recursive(self):
         """
         Solve sudoku recursively -> Modify self.grid
-        
+
         Returns:
             bool: True when a solution is found, False otherwise
         """

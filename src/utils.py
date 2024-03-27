@@ -10,15 +10,28 @@ GRAPHS_DIR = STATS_DIR / "graphs"
 
 SOURCES_DIR = BASE_DIR / "src"
 SOLVERS_DIR = SOURCES_DIR / "solvers"
-SOLVERS_MODULES = [x.name[:-3] for x in SOLVERS_DIR.iterdir() if x.is_file() and x.name != "base.py" and x.name != "__init__.py"]
+SOLVERS_MODULES = [
+    x.name[:-3] for x in SOLVERS_DIR.iterdir()
+    if x.is_file() and x.name != "base.py" and x.name != "__init__.py"
+]
 
-count_empty_cells = lambda grid: sum(x == 0 for row in grid for x in row)
+
+def count_empty_cells(grid):
+    """
+    Get count empty cells
+
+    Args:
+        grid (list): 9x9 list of integers
+    Returns:
+        int: count empty cells
+    """
+    return sum(x == 0 for row in grid for x in row)
 
 
 def read_file(file_path):
     """
     Read grid from file
-    
+
     Args:
         file_path (str): path of the file
     Returns:
@@ -35,7 +48,7 @@ def read_file(file_path):
 def get_solver_class(method):
     """
     Get solver class
-    
+
     Args:
         method (str): name of the method
 
@@ -49,7 +62,7 @@ def get_solver_class(method):
 def get_grid(method, grid):
     """
     Get grid
-    
+
     Args:
         method (str): name of the method
         grid (str): name of the grid without extention
@@ -64,7 +77,7 @@ def get_grid(method, grid):
 def print_grid(solver):
     """
     Print the grid in terminal
-    
+
     Args:
         solver (BaseSudokuSolver child): the sudoku solver
     """
@@ -76,9 +89,11 @@ def print_grid(solver):
             # Print dashes to separate 3x3 blocks
             if j % 3 == 0 and j != 0:
                 print(" | ", end="")
-            
+
             # Value is from the original grid if it is not empty
-            value = solver.original_grid[i][j] if solver.original_grid[i][j] != 0 else solver.grid[i][j]
+            value = solver.original_grid[i][j]\
+                if solver.original_grid[i][j] != 0\
+                else solver.grid[i][j]
             if value == 0:
                 value = " "
             empty = not bool(solver.original_grid[i][j])

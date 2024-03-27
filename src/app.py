@@ -49,7 +49,7 @@ class Button:
     def __init__(self, screen, x, y, width, height, text, color):
         """
         Initialize the button
-        
+
         Args:
             screen (pygame.Surface): the screen to draw on
             x (int): x coordinate of the button
@@ -76,7 +76,8 @@ class Button:
 
     def is_clicked(self, pos):
         """
-        
+        Check if the button is clicked given a mouse position
+
         Args:
             pos (tuple): the position of the mouse
 
@@ -119,11 +120,11 @@ class SudokuSolverApp:
         self.grid_selected = ""
         self.solver_class = None
         self.grid = None
-    
+
     def draw_title(self, title):
         """
         Draw the title on the screen
-        
+
         Args:
             title (str): the title
         """
@@ -151,7 +152,9 @@ class SudokuSolverApp:
         Select the solving method
         """
         buttons = [
-            Button(self.screen, 200, 150 + 50 * i + i * 10, 140, 50, method, GREEN) for i, method in enumerate(SOLVERS_MODULES)
+            Button(
+                self.screen, 200, 150 + 50 * i + i * 10, 140, 50, method, GREEN
+            ) for i, method in enumerate(SOLVERS_MODULES)
         ]
         while self.running:
             for event in pygame.event.get():
@@ -161,9 +164,11 @@ class SudokuSolverApp:
                     for button in buttons:
                         if button.is_clicked(event.pos):
                             self.method_selected = button.text
-                            self.solver_class = get_solver_class(self.method_selected)
+                            self.solver_class = get_solver_class(
+                                self.method_selected
+                            )
                             self.select_grid()
-                
+
             self.screen.fill(WHITE)
 
             self.draw_title("Select Solving Method")
@@ -175,26 +180,34 @@ class SudokuSolverApp:
 
     def select_grid(self):
         buttons = [
-            Button(self.screen, 200, 150 + 50 * (i-1) + i * 10, 140, 50, str(i), GREEN) for i in range(1, 6)
+            Button(
+                screen=self.screen,
+                x=200, y=150 + 50 * (i-1) + i * 10,
+                width=140, height=50,
+                text=str(i), color=GREEN
+            ) for i in range(1, 6)
         ]
         while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
-                elif event.type == pygame.KEYDOWN and event.key == pygame.K_BACKSPACE:
+                elif event.type == pygame.KEYDOWN \
+                        and event.key == pygame.K_BACKSPACE:
                     self.select_method()
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     for button in buttons:
                         if button.is_clicked(event.pos):
                             self.grid_selected = button.text
-                            self.grid = get_grid(self.method_selected, self.grid_selected)
+                            self.grid = get_grid(
+                                self.method_selected, self.grid_selected
+                            )
                             self.solve_grid()
             self.screen.fill(WHITE)
             self.draw_title("Select Grid")
             for button in buttons:
                 button.draw()
             pygame.display.update()
-    
+
     def solve_grid(self):
         solver = self.solver_class(self.grid)
         button = Button(self.screen, 200, 500, 140, 50, "Solve", GREEN)
@@ -208,27 +221,34 @@ class SudokuSolverApp:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
-                elif event.type == pygame.KEYDOWN and event.key == pygame.K_BACKSPACE:
+                elif event.type == pygame.KEYDOWN \
+                        and event.key == pygame.K_BACKSPACE:
                     self.select_grid()
-                elif event.type == pygame.MOUSEBUTTONDOWN and button.is_clicked(event.pos):
-                    if not finish:
-                        # Change the button color and text
-                        button.color = RED
-                        button.text = "Solving ..."
-                        self.update_grid(button, solver, finish, execution_time, grid_solved)
+                elif event.type == pygame.MOUSEBUTTONDOWN \
+                        and not finish and button.is_clicked(event.pos):
+                    # Change the button color and text
+                    button.color = RED
+                    button.text = "Solving ..."
+                    self.update_grid(
+                        button, solver, finish, execution_time, grid_solved
+                    )
 
-                        # Solve the grid
-                        start = time()
-                        grid_solved = solver.solve()
-                        end = time()
-                        execution_time = end - start
-                        finish = True
-                        print_grid(solver)
-                        print(f"Grid {self.grid_selected} solved in {execution_time} seconds with {self.method_selected}!")
+                    # Solve the grid
+                    start = time()
+                    grid_solved = solver.solve()
+                    end = time()
+                    execution_time = end - start
+                    finish = True
+                    print_grid(solver)
+                    print(f"Grid solved in {execution_time} seconds!")
 
-            self.update_grid(button, solver, finish, execution_time, grid_solved)
+            self.update_grid(
+                button, solver, finish, execution_time, grid_solved
+            )
 
-    def update_grid(self, button, solver, finish, execution_time, grid_solved):
+    def update_grid(
+        self, button, solver, finish, execution_time, grid_solved
+    ):
         """
         Update the screen
 
@@ -242,7 +262,10 @@ class SudokuSolverApp:
         # Clear the screen
         self.screen.fill(WHITE)
 
-        self.draw_title(f"Solve grid {self.grid_selected} with {self.method_selected.capitalize()}")
+        self.draw_title(
+            f"Solve grid {self.grid_selected} " +
+            f"with {self.method_selected.capitalize()}"
+        )
 
         # Draw the grid
         self.draw_grid(solver, finish)
@@ -253,11 +276,15 @@ class SudokuSolverApp:
         if not finish:
             button.draw()
         elif grid_solved:
-            text = font.render(f"Solved in {execution_time} seconds", True, BLACK)
+            text = font.render(
+                f"Solved in {execution_time} seconds", True, BLACK
+            )
             text_rect = text.get_rect(center=(WIDTH // 2, 550))
             self.screen.blit(text, text_rect)
         else:
-            text = font.render(f"No solution found in {execution_time} seconds", True, BLACK)
+            text = font.render(
+                f"No solution found in {execution_time} seconds", True, BLACK
+            )
             text_rect = text.get_rect(center=(WIDTH // 2, 550))
             self.screen.blit(text, text_rect)
         pygame.display.flip()
@@ -276,28 +303,76 @@ class SudokuSolverApp:
         for i in range(9):
             for j in range(9):
                 if solver.original_grid[i][j] != 0:
-                    pygame.draw.rect(self.screen, WHITE, (MARGIN_X + j * CELL_SIZE, MARGIN_Y + i * CELL_SIZE, CELL_SIZE, CELL_SIZE))
-                    text = font.render(str(solver.original_grid[i][j]), True, BLACK)
-                    text_rect = text.get_rect(center=(MARGIN_X + j * CELL_SIZE + CELL_SIZE // 2, MARGIN_Y + i * CELL_SIZE + CELL_SIZE // 2))
+                    pygame.draw.rect(
+                        self.screen, WHITE,
+                        (
+                            MARGIN_X + j * CELL_SIZE,
+                            MARGIN_Y + i * CELL_SIZE,
+                            CELL_SIZE, CELL_SIZE
+                        )
+                    )
+                    text = font.render(
+                        str(solver.original_grid[i][j]), True, BLACK
+                    )
+                    text_rect = text.get_rect(
+                        center=(
+                            MARGIN_X + j * CELL_SIZE + CELL_SIZE // 2,
+                            MARGIN_Y + i * CELL_SIZE + CELL_SIZE // 2
+                        )
+                    )
                     self.screen.blit(text, text_rect)
                 elif solved and solver.grid[i][j] != 0:
-                    pygame.draw.rect(self.screen, WHITE, (MARGIN_X + j * CELL_SIZE, MARGIN_Y + i * CELL_SIZE, CELL_SIZE, CELL_SIZE))
-                    text = font.render(str(solver.grid[i][j]), True, RED)
-                    text_rect = text.get_rect(center=(MARGIN_X + j * CELL_SIZE + CELL_SIZE // 2, MARGIN_Y + i * CELL_SIZE + CELL_SIZE // 2))
+                    pygame.draw.rect(
+                        self.screen, WHITE,
+                        (
+                            MARGIN_X + j * CELL_SIZE,
+                            MARGIN_Y + i * CELL_SIZE,
+                            CELL_SIZE, CELL_SIZE
+                        )
+                    )
+                    text = font.render(
+                        str(solver.grid[i][j]), True, RED
+                    )
+                    text_rect = text.get_rect(
+                        center=(
+                            MARGIN_X + j * CELL_SIZE + CELL_SIZE // 2,
+                            MARGIN_Y + i * CELL_SIZE + CELL_SIZE // 2
+                        )
+                    )
                     self.screen.blit(text, text_rect)
 
         # Draw the grid
         for i in range(9):
             for j in range(9):
-                pygame.draw.rect(self.screen, BLACK, (MARGIN_X + j * CELL_SIZE, MARGIN_Y + i * CELL_SIZE, CELL_SIZE, CELL_SIZE), 1)
+                pygame.draw.rect(
+                    self.screen, BLACK,
+                    (
+                        MARGIN_X + j * CELL_SIZE,
+                        MARGIN_Y + i * CELL_SIZE,
+                        CELL_SIZE, CELL_SIZE
+                    ),
+                    1
+                )
 
         # Draw the 3x3 blocks
         for i in range(3):
             for j in range(3):
-                pygame.draw.rect(self.screen, GREY, (MARGIN_X + j * CELL_SIZE * 3, MARGIN_Y + i * CELL_SIZE * 3, CELL_SIZE * 3, CELL_SIZE * 3), 3)
-        
+                pygame.draw.rect(
+                    self.screen, GREY,
+                    (
+                        MARGIN_X + j * CELL_SIZE * 3,
+                        MARGIN_Y + i * CELL_SIZE * 3,
+                        CELL_SIZE * 3, CELL_SIZE * 3
+                    ),
+                    3
+                )
+
         # Draw the border
-        pygame.draw.rect(self.screen, GREY, (MARGIN_X, MARGIN_Y, GRID_WIDTH, GRID_HEIGHT), 10)
+        pygame.draw.rect(
+            self.screen, GREY,
+            (MARGIN_X, MARGIN_Y, GRID_WIDTH, GRID_HEIGHT),
+            10
+        )
 
 
 def main():
