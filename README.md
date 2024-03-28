@@ -8,11 +8,11 @@ A Sudoku Solver using Brute Force and Backtracking
 - Type commands :
   - `git clone https://github.com/christian-aucane/Sudoku-Solver.git`
   - `cd Sudoku-Solver`
-  - `source init.bash`
+  - `source bash_scripts/init.bash`
 ### To launch the application (each time it is launched)
 - Open git bash at project root
 - Type command :
-  - `source run.bash`
+  - `source bash_scripts/run.bash`
 
 
 ## TODO
@@ -23,10 +23,7 @@ A Sudoku Solver using Brute Force and Backtracking
 - Calcul de la complexité algorithmique
 - comparaison des algos
 - graphiques
-- ...?
-
-### presentation
-- revoir graphique backtracking 
+- ...? 
 
 ### Autre methode de resolution
 - calculer valeurs possibles de chaque case
@@ -89,4 +86,8 @@ Displays interactive graphs for each solving method (uses plotly)
 - method (optionnel) -> Solving method to display
 
 ## Analyse
-TODO : Ajouter analyse des algos, graphiques ...
+### Bruteforce
+
+### Backtracking
+
+### Bruteforce 2
