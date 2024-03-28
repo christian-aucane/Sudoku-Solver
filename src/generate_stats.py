@@ -1,3 +1,8 @@
+"""
+Generate stats
+
+Generate stats for each method
+"""
 from copy import deepcopy
 import json
 from time import time

@@ -1,8 +1,12 @@
+"""
+Sudoku solver using a modified brute-force approach.
 
+This module provides a class for solving Sudoku puzzles
+using a modified brute-force approach.
+"""
 from itertools import product
 
 from tqdm import tqdm
-
 
 from .base import BaseBruteforceSudokuSolver
 

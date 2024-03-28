@@ -1,3 +1,10 @@
+"""
+Sudoku solver using a backtracking algorithm.
+
+This module provides a class BacktrackingSudokuSolver
+that extends the functionality of the BaseSudokuSolver class
+to provide a solver for Sudoku puzzles using a backtracking algorithm.
+"""
 from solvers.base import BaseSudokuSolver
 
 

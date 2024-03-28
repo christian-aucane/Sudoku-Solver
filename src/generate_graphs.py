@@ -1,3 +1,9 @@
+"""
+Generate graphs
+
+Plot the execution time of each method
+and save the figure in the GRAPHS_DIR folder
+"""
 import json
 
 import matplotlib.pyplot as plt
@@ -16,7 +22,7 @@ def plot_method(data, method):
         method (str): Method for which to plot
             the execution time and number of combinations
     """
-    fig, ax1 = plt.subplots(figsize=(10, 6))
+    _, ax1 = plt.subplots(figsize=(10, 6))
 
     ax1.set_xlabel("Number of Empty Cells")
 
@@ -44,12 +50,12 @@ def plot_method(data, method):
     # Plot the curves
     ax1.plot(
         empty_cells, exec_times,
-        marker="o", linestyle="-",
+        linestyle="-",
         label="Execution Time", color="tab:blue"
     )
     ax2.plot(
         empty_cells, n_combinations,
-        marker="s", linestyle="--",
+        linestyle="--",
         label="Number of Combinations", color="tab:red"
     )
 
@@ -94,13 +100,6 @@ def compare_methods(data, *methods):
             if int(key) <= max_empty_cells
         ]
         plt.plot(x, y, label=method, color=color)
-
-        # Draw text
-        plt.text(
-            x[0], y[0],
-            f"{method} - {y[0]:.2f}",
-            fontsize=8, ha="right", va="bottom"
-        )
 
     # Add titles and captions
     plt.title(f"Comparation of execution time for {' - '.join(methods)}")

@@ -1,18 +1,12 @@
+"""
+Base classes for Sudoku solvers.
+
+This module provides a base class for Sudoku solvers
+and a base class for brute-force Sudoku solvers.
+"""
 from copy import deepcopy
 
 from utils import count_empty_cells
-
-"""
-[[0, 0, 0, 0, 0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0, 0, 0, 0, 0]]
-"""
 
 
 class BaseSudokuSolver:

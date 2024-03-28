@@ -1,3 +1,8 @@
+"""
+Generate grids
+
+Generate 5 solved grids and 5 grids for each method
+"""
 from copy import deepcopy
 from random import randint
 

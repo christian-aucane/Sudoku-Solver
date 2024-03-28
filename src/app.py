@@ -1,5 +1,13 @@
+"""
+Sudoku Solver App
+
+This module contains the main application for solving Sudoku puzzles using Pygame.
+
+It includes a class `Button` for creating interactive buttons, and a `SudokuSolverApp` class for running the application.
+"""
 import sys
 from time import time
+
 import pygame
 
 from utils import SOLVERS_MODULES, get_grid, get_solver_class, print_grid
@@ -44,7 +52,7 @@ class Button:
     Methods:
         draw: Draw the button on the screen.
         is_clicked: Check if the button is clicked given a mouse position.
-
+        set_color: Change the button color.
     """
     def __init__(self, screen, x, y, width, height, text, color):
         """
@@ -110,6 +118,7 @@ class SudokuSolverApp:
 
     Methods:
         draw_title: Draw the title on the screen.
+        quit: Quit the app.
         run: Run the Sudoku solver application.
         select_method: Select the solving method.
         select_grid: Select the Sudoku grid to solve.
@@ -143,6 +152,14 @@ class SudokuSolverApp:
         text_rect = text.get_rect(center=(WIDTH // 2, 50))
         self.screen.blit(text, text_rect)
 
+    def quit(self):
+        """
+        Quit the app
+        """
+        self.running = False
+        pygame.quit()
+        sys.exit()
+
     def run(self):
         """
         Run the app
@@ -150,11 +167,8 @@ class SudokuSolverApp:
         while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    self.running = False
+                    self.quit()
             self.select_method()
-
-        pygame.quit()
-        sys.exit()
 
     def select_method(self):
         """
@@ -168,7 +182,7 @@ class SudokuSolverApp:
         while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    self.running = False
+                    self.quit()
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     for button in buttons:
                         if button.is_clicked(event.pos):
@@ -188,6 +202,9 @@ class SudokuSolverApp:
             pygame.display.update()
 
     def select_grid(self):
+        """
+        Select the Sudoku grid to solve
+        """
         buttons = [
             Button(
                 screen=self.screen,
@@ -199,7 +216,7 @@ class SudokuSolverApp:
         while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    self.running = False
+                    self.quit()
                 elif event.type == pygame.KEYDOWN \
                         and event.key == pygame.K_BACKSPACE:
                     self.select_method()
@@ -218,6 +235,9 @@ class SudokuSolverApp:
             pygame.display.update()
 
     def solve_grid(self):
+        """
+        Solve the selected Sudoku grid
+        """
         solver = self.solver_class(self.grid)
         button = Button(self.screen, 200, 500, 140, 50, "Solve", GREEN)
 
@@ -229,7 +249,7 @@ class SudokuSolverApp:
         while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    self.running = False
+                    self.quit()
                 elif event.type == pygame.KEYDOWN \
                         and event.key == pygame.K_BACKSPACE:
                     self.select_grid()

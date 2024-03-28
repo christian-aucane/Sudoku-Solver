@@ -1,3 +1,9 @@
+"""
+Show graphs
+
+Plot the execution time of each method
+and open the figures in web browser
+"""
 import argparse
 import json
 
