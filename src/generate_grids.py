@@ -75,7 +75,7 @@ def main():
     bruteforce2_dir.mkdir(parents=True, exist_ok=True)
     backtracking_dir.mkdir(parents=True, exist_ok=True)
 
-    for i in range(1, 6): # 5 grids
+    for i in range(1, 6):  # 5 grids
         input_grid = get_grid("solved", i)
         bruteforce_output_grid = generate_grid(input_grid, 6)
         write_grid_in_file(bruteforce_output_grid, bruteforce_dir / f"{i}.txt")

@@ -1,9 +1,11 @@
 """
 Sudoku Solver App
 
-This module contains the main application for solving Sudoku puzzles using Pygame.
+This module contains the main application for
+solving Sudoku puzzles using Pygame.
 
-It includes a class `Button` for creating interactive buttons, and a `SudokuSolverApp` class for running the application.
+It includes a class `Button` for creating interactive buttons,
+and a `SudokuSolverApp` class for running the application.
 """
 import sys
 from time import time
@@ -123,7 +125,8 @@ class SudokuSolverApp:
         select_method(): Select the solving method.
         select_grid(): Select the Sudoku grid to solve.
         solve_grid(): Solve the selected Sudoku grid.
-        update_grid(button, solver, finish, execution_time, grid_solved): Update the screen display during solving.
+        update_grid(button, solver, finish, execution_time, grid_solved):
+            Update the screen display.
         draw_grid(solver, finish): Draw the Sudoku grid on the screen.
     """
     def __init__(self):
