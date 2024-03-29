@@ -32,7 +32,6 @@ A Sudoku Solver using Brute Force and Backtracking
 - est-ce que ca marche ?
 - si non trouver que faire des valeurs possibles
 
-
 ## Files
 
 ### solvers/
