@@ -98,28 +98,41 @@ Le nombre de combinaisons possibles augmente de manière exponentiel par rapport
 - 9 cases : 9^9 = 387 420 489 combinaison
 - ...
 
+### Rappel des règles
+![Image d'une grille de sudoku](img/sudoku_grid.png)
+
+Chaque ligne, colonne et région 3 x 3 doivent contenir tous les chiffres de 1 a 9 une seule fois.
 
 ### Bruteforce
 #### Explication de l'algoritgme
 
 #### Graphique
-![Courbes du nombre de combinaison et du temps d'execution par rapport au nombre de cases vides](img/bruteforce.png)
+![Courbes du nombre de combinaison et du temps d'execution par rapport au nombre de cases vides](img/graphs/bruteforce.png)
 
 ### Backtracking
 #### Explication de l'algoritgme
 
 #### Graphique
-![Courbes du nombre de combinaison et du temps d'execution par rapport au nombre de cases vides](img/backtracking.png)
+![Courbes du nombre de combinaison et du temps d'execution par rapport au nombre de cases vides](img/graphs/backtracking.png)
 
-### Bruteforce 2
+### Bruteforce avec sélection des valeurs (bruteforce2)
 #### Explication de l'algoritgme
-
+Comparable au bruteforce, sauf qu'au lieu de tester toutes les valeurs de 1 a 9 pour chaque case, il calcule d'abord les valeurs possibles pour chaque case, c'est a dire qui ne violent pas les règles du Sudoku, ensuite teste toutes les combinaisons de valeurs possibles.
+Le nombre de combinaisons dépend de la grille. En effet, selon la position des cases vides il n'y a pas forcément le même nombre de combinaisons.
 #### Graphique
-![Courbes du nombre de combinaison et du temps d'execution par rapport au nombre de cases vides](img/bruteforce2.png)
+![Courbes du nombre de combinaison et du temps d'execution par rapport au nombre de cases vides](img/graphs/bruteforce2.png)
 
 ### Comparaisons
-![Courbe de comparaison du temps d'execution entre bruteforce et backtracking](img/bruteforce_backtracking.png)
-![Courbe de comparaison du temps d'execution entre bruteforce et bruteforce2](img/bruteforce_bruteforce2.png)
-![Courbe de comparaison du temps d'execution entre bracktrackin et bruteforce2](img/bruteforce2_backtracking.png)
+![Courbe de comparaison du temps d'execution entre bruteforce et backtracking](img/graphs/bruteforce_backtracking.png)
 
-### Conclusion4
+![Courbe de comparaison du temps d'execution entre bruteforce et bruteforce2](img/graphs/bruteforce_bruteforce2.png)
+
+![Courbe de comparaison du temps d'execution entre bracktrackin et bruteforce2](img/graphs/bruteforce2_backtracking.png)
+
+Dans l'ordre, l'algorithme le plus rapide est le **backtracking**, suivi par le **bruteforce avec sélection des valeurs**, puis par le **bruteforce**.
+- Pour le **bruteforce** le temps de résolution reste raisonable jusqu'a 8 cases vides (autours de 3 secondes).
+- Pour le **bruteforce** avec sélection Le temps de résolution reste raisonable entre 30 et 35 cases vides (Ca dépend de la grille).
+- Pour le **backtracking**, le temps de résolution reste très raisonable quelque soit le nombre de cases vides (moins d'1 seconde)
+
+### Conclusion
+Pour résoudre une grille normale, il faut utiliser le backtracking.
