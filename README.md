@@ -100,10 +100,26 @@ Le nombre de combinaisons possibles augmente de manière exponentiel par rapport
 
 
 ### Bruteforce
+#### Explication de l'algoritgme
+
+#### Graphique
 ![Courbes du nombre de combinaison et du temps d'execution par rapport au nombre de cases vides](img/bruteforce.png)
 
 ### Backtracking
+#### Explication de l'algoritgme
+
+#### Graphique
 ![Courbes du nombre de combinaison et du temps d'execution par rapport au nombre de cases vides](img/backtracking.png)
 
 ### Bruteforce 2
+#### Explication de l'algoritgme
+
+#### Graphique
 ![Courbes du nombre de combinaison et du temps d'execution par rapport au nombre de cases vides](img/bruteforce2.png)
+
+### Comparaisons
+![Courbe de comparaison du temps d'execution entre bruteforce et backtracking](img/bruteforce_backtracking.png)
+![Courbe de comparaison du temps d'execution entre bruteforce et bruteforce2](img/bruteforce_bruteforce2.png)
+![Courbe de comparaison du temps d'execution entre bracktrackin et bruteforce2](img/bruteforce2_backtracking.png)
+
+### Conclusion4
