@@ -18,8 +18,8 @@ A Sudoku Solver using Brute Force and Backtracking
 ## TODO
 
 ### Section Analyse dans le README
-- Nombre de combinaisons exponentielle
-- calcul du nombre de combinaisons selon le nombre de case vide
+- Nombre de combinaisons exponentielle OK
+- calcul du nombre de combinaisons selon le nombre de case vide OK
 - Calcul de la complexité algorithmique
 - comparaison des algos
 - graphiques
@@ -86,8 +86,24 @@ Displays interactive graphs for each solving method (uses plotly)
 - method (optionnel) -> Solving method to display
 
 ## Analyse
+Le nombre de combinaisons possibles augmente de manière exponentiel par rapport au nombre de cases vides
+- 1 case : 9 combinaisons
+- 2 cases : 9^2 = 81 combinaisons
+- 3 cases : 9^3 = 729 combinaisons
+- 4 cases : 9^4 = 6561 combinaison
+- 5 cases : 9^5 = 95 049 combinaison
+- 6 cases : 9^6 = 531 441 combinaison
+- 7 cases : 9^7 = 4 782 969 combinaison
+- 8 cases : 9^8 = 43 046 721 combinaison
+- 9 cases : 9^9 = 387 420 489 combinaison
+- ...
+
+
 ### Bruteforce
+![Courbes du nombre de combinaison et du temps d'execution par rapport au nombre de cases vides](img/bruteforce.png)
 
 ### Backtracking
+![Courbes du nombre de combinaison et du temps d'execution par rapport au nombre de cases vides](img/backtracking.png)
 
 ### Bruteforce 2
+![Courbes du nombre de combinaison et du temps d'execution par rapport au nombre de cases vides](img/bruteforce2.png)
