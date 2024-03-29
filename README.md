@@ -111,7 +111,7 @@ Chaque ligne, colonne et région 3 x 3 doivent contenir tous les chiffres de 1 a
 
 ### Backtracking
 #### Explication de l'algoritgme
-Backtracking is a method to systematically explore all possible solutions to a problem, making it effective in Sudoku solving by ensuring game rules are followed. This Sudoku solver employs a backtracking algorithm based on the BaseSudokuSolver class, promoting organized code. The 'solve()' method initiates the solving process, displaying puzzle complexity before calling 'solverecursive()'. Within 'solverecursive()', each possibility is tested recursively, backtracking if a contradiction is found, until a solution is reached or all possibilities are exhausted. This efficient approach provides a practical solution for Sudoku enthusiasts.
+Backtracking is a method to systematically explore all possible solutions to a problem, making it effective in Sudoku solving by ensuring game rules are followed. Cell by cell, each possibility is tested recursively, backtracking if a contradiction is found, until a solution is reached or all possibilities are exhausted. This efficient approach provides a practical solution for Sudoku enthusiasts.
 
 #### Graphique
 ![Courbes du nombre de combinaison et du temps d'execution par rapport au nombre de cases vides](img/graphs/backtracking.png)
