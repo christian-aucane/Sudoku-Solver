@@ -104,12 +104,7 @@ Chaque ligne, colonne et région 3 x 3 doivent contenir tous les chiffres de 1 a
 
 ### Bruteforce
 #### Explication de l'algoritgme
-Class BruteforceSolver inherits from BaseBruteforceSudokuSolver and implements other sudoku solving methods.
-The constructor init first calls the parent class constructor using super init args, kwargs, then initializes the values of empty cells to 1.
-Next values generates the next values to apply to empty cells.
-Solve resolves the sudoku by iteratively applying values to empty cells until a solution or combination is found.
-The main loop in the solve method continues until the grid is solved or all combinations have been tried.
-At each iteration, values are applied to empty cells and the next values method is used to generate the next values to try.
+An algorithm employing brute force systematically tries every possible solution until finding one that satisfies the problem constraints. In the case of Sudoku, it generates and tests all combinations of numbers in empty cells, checking each against the game's rules until a valid solution is discovered or all options are exhausted. This approach is straightforward but can be computationally intensive, especially for complex problems.
 
 
 #### Graphique
