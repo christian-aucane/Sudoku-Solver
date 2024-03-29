@@ -50,9 +50,9 @@ class Button:
         screen (pygame.Surface): The screen to draw the button on.
 
     Methods:
-        draw: Draw the button on the screen.
-        is_clicked: Check if the button is clicked given a mouse position.
-        set_color: Change the button color.
+        draw(): Draw the button on the screen.
+        is_clicked(pos): Check if the button is clicked given a mouse position.
+        set_color(color): Change the button color.
     """
     def __init__(self, screen, x, y, width, height, text, color):
         """
@@ -117,14 +117,14 @@ class SudokuSolverApp:
         grid (list): The Sudoku grid to be solved.
 
     Methods:
-        draw_title: Draw the title on the screen.
-        quit: Quit the app.
-        run: Run the Sudoku solver application.
-        select_method: Select the solving method.
-        select_grid: Select the Sudoku grid to solve.
-        solve_grid: Solve the selected Sudoku grid.
-        update_grid: Update the screen display during solving.
-        draw_grid: Draw the Sudoku grid on the screen.
+        draw_title(title): Draw the title on the screen.
+        quit(): Quit the app.
+        run(): Run the Sudoku solver application.
+        select_method(): Select the solving method.
+        select_grid(): Select the Sudoku grid to solve.
+        solve_grid(): Solve the selected Sudoku grid.
+        update_grid(button, solver, finish, execution_time, grid_solved): Update the screen display during solving.
+        draw_grid(solver, finish): Draw the Sudoku grid on the screen.
     """
     def __init__(self):
         """
